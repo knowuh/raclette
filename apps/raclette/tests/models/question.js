@@ -4,7 +4,7 @@
 // ==========================================================================
 /*globals Raclette module test ok equals same stop start */
 
-module("Raclette.Question");
+module("Raclette.Question",{ setup: setupFixtures });
 
 // TODO: Replace with real unit test for Question
 test("test description", function() {

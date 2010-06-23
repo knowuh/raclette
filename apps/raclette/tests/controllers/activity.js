@@ -4,7 +4,7 @@
 // ==========================================================================
 /*globals Raclette module test ok equals same stop start */
 
-module("Raclette.activityController");
+module("Raclette.activityController",{ setup: setupFixtures });
 
 // TODO: Replace with real unit test for Raclette.activityController
 test("test description", function() {

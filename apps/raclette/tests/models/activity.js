@@ -6,7 +6,7 @@
 // ==========================================================================
 /*globals Raclette module test ok equals same stop start */
 
-module("Raclette.Activity");
+module("Raclette.Activity", { setup: setupFixtures });
 
 // TODO: Replace with real unit test for Activity
 test("test description", function() {
@@ -17,7 +17,6 @@ test("test description", function() {
 
 // NOTE: Assumes contents of fixtures.
 test("test two questions in first model", function() {
-  debugger;
   var expectedSize = 2;
   var activity   = Raclette.store.find('Raclette.Activity',1);
   var numQuestions = activity.get('questions').get('length');
