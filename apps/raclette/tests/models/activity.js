@@ -1,6 +1,8 @@
 // ==========================================================================
-// Project:   Raclette.Activity Unit Test
-// Copyright: ©2010 My Company, Inc.
+// you can run these tests directly here:
+//
+// http://localhost:4020/raclette/en/current/tests/models/activity.html
+//
 // ==========================================================================
 /*globals Raclette module test ok equals same stop start */
 
@@ -13,3 +15,11 @@ test("test description", function() {
   equals(result, expected, "test should equal test");
 });
 
+// NOTE: Assumes contents of fixtures.
+test("test two questions in first model", function() {
+  debugger;
+  var expectedSize = 2;
+  var activity   = Raclette.store.find('Raclette.Activity',1);
+  var numQuestions = activity.get('questions').get('length');
+  equals(numQuestions, expectedSize, "There should be 2 questions");
+});
