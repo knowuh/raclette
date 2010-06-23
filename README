@@ -51,20 +51,23 @@ Here's how the app was initially setup:
   Starting server at http://0.0.0.0:4020 in debug mode
   To quit sc-server, press Control-C
 
+Debugging in the browser Javascript console.
 
-(Configuring git to track a remote branch)
-mate ./.git/config
-[branch "master"]
-    remote = <nickname>
-    merge = <remote-ref>
+Loading a model, changing and attribute and causing SC views to update:
 
-    [remote "<nickname>"]
-    url = <url>
-    fetch = <refspec>
+  act = Raclette.store.find(Raclette.Activity,1)
+  //(then modify an attribute)
+  act.set('title', 'hello from the console three');
+  SC.run(function(){});
 
-Javascript console:
-act = Raclette.store.find(Raclette.Activity,1)
-//(then modify an attribute)
-act.set('title', 'hello from the console three');
-SC.run(function(){});
+
+Configuring git to track a remote branch:
+  mate ./.git/config
+  [branch "master"]
+      remote = <nickname>
+      merge = <remote-ref>
+
+      [remote "<nickname>"]
+      url = <url>
+      fetch = <refspec>
 
