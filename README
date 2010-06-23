@@ -50,3 +50,21 @@ Here's how the app was initially setup:
   SproutCore v1.0.1046 Development Server
   Starting server at http://0.0.0.0:4020 in debug mode
   To quit sc-server, press Control-C
+
+
+(Configuring git to track a remote branch)
+mate ./.git/config
+[branch "master"]
+    remote = <nickname>
+    merge = <remote-ref>
+
+    [remote "<nickname>"]
+    url = <url>
+    fetch = <refspec>
+
+Javascript console:
+act = Raclette.store.find(Raclette.Activity,1)
+//(then modify an attribute)
+act.set('title', 'hello from the console three');
+SC.run(function(){});
+
