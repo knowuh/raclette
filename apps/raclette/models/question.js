@@ -14,7 +14,9 @@
 Raclette.Question = SC.Record.extend(
 /** @scope Raclette.Question.prototype */ {
   prompt: SC.Record.attr(String),
-  activity: SC.Record.toOne('Raclette.Activity')
+  activity: SC.Record.toOne('Raclette.Activity',{
+    inverse: 'questions'
+  })
   // TODO: Add your own code here.
 
 }) ;

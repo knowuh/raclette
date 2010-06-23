@@ -14,7 +14,9 @@
 Raclette.Activity = SC.Record.extend(
 /** @scope Raclette.Activity.prototype */ {
   title: SC.Record.attr(String),
-  questions: SC.Record.toMany('Raclette.Question')
+  questions: SC.Record.toMany('Raclette.Question',{
+    inverse: 'activity'
+  })
   // TODO: Add your own code here.
 
 }) ;
