@@ -1,16 +1,21 @@
 // ==========================================================================
-// Project:   Raclette.Activity Fixtures
+// Project:   Raclette.Question Fixtures
 // Copyright: ©2010 My Company, Inc.
 // ==========================================================================
 /*globals Raclette */
 
-sc_require('models/activity');
+sc_require('models/question');
 
-Raclette.Activity.FIXTURES = [
+Raclette.Question.FIXTURES = [
   {
     guid: 1,
-    title: 'Wheels of Cheese',
-    questions: [1,2]
+    prompt: "What color is the sky?",
+    activity: 1
+  },
+  {
+    guid: 2,
+    prompt: "What color is dirt?",
+    activity: 1
   }
-    
-]
+
+];
