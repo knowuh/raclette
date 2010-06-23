@@ -1,0 +1,270 @@
+=============================================================================
+Project:   Raclette
+Copyright: ©2010 My Company, Inc.
+=============================================================================
+
+TODO: Describe Your Project
+
+(npaessel@dhcp173)-(jobs:0)-(~/lab/javascript/raclette)
+(! 1137)-> which sc-init
+/usr/bin/sc-init
+
+(npaessel@dhcp173)-(jobs:0)-(~/lab/javascript/raclette)
+(! 1138)-> gem list | grep sprout
+sproutcore (1.0.1046)
+
+(npaessel@dhcp173)-(jobs:0)-(~/lab/javascript/raclette)
+(! 1139)-> sc-init raclette
+ ~ Created directory at raclette
+ ~ Created file at raclette/Buildfile
+ ~ Created file at raclette/README
+ ~ Created directory at apps
+ ~ Created directory at apps/raclette
+ ~ Created file at apps/raclette/core.js
+ ~ Created file at apps/raclette/main.js
+ ~ Created directory at apps/raclette/resources
+ ~ Created file at apps/raclette/resources/loading.rhtml
+ ~ Created file at apps/raclette/resources/main_page.js
+Your new SproutCore project is ready!
+
+To get started, you can find your initial application in the "apps" directory.
+
+
+(npaessel@dhcp173)-(jobs:0)-(~/lab/javascript/raclette)
+(! 1140)-> tree
+.
+|-- README
+`-- raclette
+    |-- Buildfile
+    |-- README
+    `-- apps
+        `-- raclette
+            |-- core.js
+            |-- main.js
+            `-- resources
+                |-- loading.rhtml
+                `-- main_page.js
+
+4 directories, 7 files
+
+(npaessel@dhcp173)-(jobs:0)-(~/lab/javascript/raclette)
+(! 1141)-> sc-gen model Raclette.Activity
+WARN ~ For specific help on how to use this generator, type: sc-gen model --help 
+FATAL ~ This generator requires a Target 
+
+(npaessel@dhcp173)-(jobs:0)-(~/lab/javascript/raclette)
+(! 1142)-> tree
+.
+|-- README
+`-- raclette
+    |-- Buildfile
+    |-- README
+    `-- apps
+        `-- raclette
+            |-- core.js
+            |-- main.js
+            `-- resources
+                |-- loading.rhtml
+                `-- main_page.js
+
+4 directories, 7 files
+
+(npaessel@dhcp173)-(jobs:0)-(~/lab/javascript/raclette)
+(! 1143)-> cd app
+bash: cd: app: No such file or directory
+
+
+
+(npaessel@dhcp173)-(jobs:0)-(~/lab/javascript/raclette)
+(! 1144)-> cd raclette/
+
+
+
+(npaessel@dhcp173)-(jobs:0)-(~/lab/javascript/raclette/raclette)
+(! 1145)-> sc-gen model Raclette.Activity
+
+(npaessel@dhcp173)-(jobs:0)-(~/lab/javascript/raclette/raclette)
+(! 1145)-> cd ..
+
+
+
+(npaessel@dhcp173)-(jobs:0)-(~/lab/javascript/raclette)
+(! 1146)-> ls -la
+total 0
+drwxr-xr-x   5 npaessel  staff   170 Jun 23 15:02 .
+drwxr-xr-x  42 npaessel  staff  1428 Jun 23 14:54 ..
+drwxrwsr-x  13 npaessel  staff   442 Jun 23 15:00 .git
+-rw-r--r--   1 npaessel  staff     0 Jun 23 14:54 README
+drwxr-xr-x   5 npaessel  staff   170 Jun 23 15:02 raclette
+
+(npaessel@dhcp173)-(jobs:0)-(~/lab/javascript/raclette)
+(! 1147)-> mv -r ./raclette/* .
+mv: illegal option -- r
+usage: mv [-f | -i | -n] [-v] source target
+       mv [-f | -i | -n] [-v] source ... directory
+
+(npaessel@dhcp173)-(jobs:0)-(~/lab/javascript/raclette)
+(! 1148)-> mv -R ./raclette/* .
+mv: illegal option -- R
+usage: mv [-f | -i | -n] [-v] source target
+       mv [-f | -i | -n] [-v] source ... directory
+
+(npaessel@dhcp173)-(jobs:0)-(~/lab/javascript/raclette)
+(! 1149)-> ls -la
+total 0
+drwxr-xr-x   5 npaessel  staff   170 Jun 23 15:02 .
+drwxr-xr-x  42 npaessel  staff  1428 Jun 23 14:54 ..
+drwxrwsr-x  13 npaessel  staff   442 Jun 23 15:00 .git
+-rw-r--r--   1 npaessel  staff     0 Jun 23 14:54 README
+drwxr-xr-x   5 npaessel  staff   170 Jun 23 15:02 raclette
+
+(npaessel@dhcp173)-(jobs:0)-(~/lab/javascript/raclette)
+(! 1150)-> cd raclette/
+
+
+
+(npaessel@dhcp173)-(jobs:0)-(~/lab/javascript/raclette/raclette)
+(! 1151)-> ls -la
+total 16
+drwxr-xr-x  5 npaessel  staff  170 Jun 23 15:02 .
+drwxr-xr-x  5 npaessel  staff  170 Jun 23 15:02 ..
+-rw-r--r--  1 npaessel  staff  294 Jun 23 15:02 Buildfile
+-rw-r--r--  1 npaessel  staff  241 Jun 23 15:02 README
+drwxr-xr-x  3 npaessel  staff  102 Jun 23 15:02 apps
+
+(npaessel@dhcp173)-(jobs:0)-(~/lab/javascript/raclette/raclette)
+(! 1152)-> mv * ../
+
+(npaessel@dhcp173)-(jobs:0)-(~/lab/javascript/raclette/raclette)
+(! 1153)-> cd ..
+
+
+
+(npaessel@dhcp173)-(jobs:0)-(~/lab/javascript/raclette)
+(! 1154)-> ls -la
+total 16
+drwxr-xr-x   7 npaessel  staff   238 Jun 23 15:08 .
+drwxr-xr-x  42 npaessel  staff  1428 Jun 23 14:54 ..
+drwxrwsr-x  13 npaessel  staff   442 Jun 23 15:00 .git
+-rw-r--r--   1 npaessel  staff   294 Jun 23 15:02 Buildfile
+-rw-r--r--   1 npaessel  staff   241 Jun 23 15:02 README
+drwxr-xr-x   3 npaessel  staff   102 Jun 23 15:02 apps
+drwxr-xr-x   2 npaessel  staff    68 Jun 23 15:08 raclette
+
+(npaessel@dhcp173)-(jobs:0)-(~/lab/javascript/raclette)
+(! 1155)-> cd ..
+
+(npaessel@dhcp173)-(jobs:0)-(~/lab/javascript/raclette)
+(! 1155)-> pwd
+/Users/npaessel/lab/javascript/raclette
+
+(npaessel@dhcp173)-(jobs:0)-(~/lab/javascript/raclette)
+(! 1156)-> tree
+.
+|-- Buildfile
+|-- README
+|-- apps
+|   `-- raclette
+|       |-- core.js
+|       |-- main.js
+|       `-- resources
+|           |-- loading.rhtml
+|           `-- main_page.js
+`-- raclette
+
+4 directories, 6 files
+
+(npaessel@dhcp173)-(jobs:0)-(~/lab/javascript/raclette)
+(! 1157)-> sc-gen model Raclette.Activity
+ ~ Created directory at fixtures
+ ~ Created file at fixtures/activity.js
+ ~ Created directory at models
+ ~ Created file at models/activity.js
+ ~ Created directory at tests
+ ~ Created directory at tests/models
+ ~ Created file at tests/models/activity.js
+
+Your model is now ready to use!
+
+(npaessel@dhcp173)-(jobs:0)-(~/lab/javascript/raclette)
+(! 1158)-> rmdir ./raclette/
+
+(npaessel@dhcp173)-(jobs:0)-(~/lab/javascript/raclette)
+(! 1159)-> ls -la
+total 16
+drwxr-xr-x   6 npaessel  staff   204 Jun 23 15:09 .
+drwxr-xr-x  42 npaessel  staff  1428 Jun 23 14:54 ..
+drwxrwsr-x  13 npaessel  staff   442 Jun 23 15:00 .git
+-rw-r--r--   1 npaessel  staff   294 Jun 23 15:02 Buildfile
+-rw-r--r--   1 npaessel  staff   241 Jun 23 15:02 README
+drwxr-xr-x   3 npaessel  staff   102 Jun 23 15:02 apps
+
+(npaessel@dhcp173)-(jobs:0)-(~/lab/javascript/raclette)
+(! 1160)-> tree
+.
+|-- Buildfile
+|-- README
+`-- apps
+    `-- raclette
+        |-- core.js
+        |-- fixtures
+        |   `-- activity.js
+        |-- main.js
+        |-- models
+        |   `-- activity.js
+        |-- resources
+        |   |-- loading.rhtml
+        |   `-- main_page.js
+        `-- tests
+            `-- models
+                `-- activity.js
+
+7 directories, 9 files
+
+(npaessel@dhcp173)-(jobs:0)-(~/lab/javascript/raclette)
+(! 1161)-> mate .
+
+(npaessel@dhcp173)-(jobs:0)-(~/lab/javascript/raclette)
+(! 1162)-> sc-gen controller Raclette.ActivityController
+ ~ Created directory at controllers
+ ~ Created file at controllers/activity.js
+ ~ Created directory at tests/controllers
+ ~ Created file at tests/controllers/activity.js
+
+Your controller is now ready to use!
+
+(npaessel@dhcp173)-(jobs:0)-(~/lab/javascript/raclette)
+(! 1163)-> script
+Script started, output file is typescript
+bash-3.2$ source ~/.bash_profile
+
+
+
+(npaessel@dhcp173)-(jobs:0)-(~/lab/javascript/raclette)
+(! 1135)-> more typescript 
+Script started on Wed Jun 23 15:14:06 2010
+
+(npaessel@dhcp173)-(jobs:0)-(~/lab/javascript/raclette)
+(! 1136)-> sc-server
+SproutCore v1.0.1046 Development Server
+Starting server at http://0.0.0.0:4020 in debug mode
+To quit sc-server, press Control-C
+^CFATAL ~  
+
+(npaessel@dhcp173)-(jobs:0)-(~/lab/javascript/raclette)
+(! 1137)-> exit
+exit
+
+Script done, output file is typescript
+
+(npaessel@dhcp173)-(jobs:0)-(~/lab/javascript/raclette)
+(! 1164)-> setup.
+
+(npaessel@dhcp173)-(jobs:0)-(~/lab/javascript/raclette)
+(! 1164)-> cat ./typescript  >> README 
+
+(npaessel@dhcp173)-(jobs:0)-(~/lab/javascript/raclette)
+(! 1165)-> gitx
+
+(npaessel@dhcp173)-(jobs:0)-(~/lab/javascript/raclette)
+(! 1166)-> history
