@@ -6,6 +6,14 @@ This is developed use the gem version of sproutcore.
 
   gem install sproutcore thin
 
+Running tests
+
+  http://0.0.0.0:4020/sproutcore/tests#raclette
+  
+Direct url to the tests:
+
+  http://0.0.0.0:4020/static/raclette/en/current/tests.html
+  
 Here's how the app was initially setup:
 
   $ which sc-init
