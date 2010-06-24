@@ -81,3 +81,13 @@ rvm gemset use raclette
 rvm gemset import default.gems 
 
 
+
+
+Trying to find new records in the console:
+
+Raclette.Questions.FIXTURES; // confusing (contains 2 objects ??)
+
+Raclette.store.find(Raclette.Question).get('length');  //3
+Raclette.store.find(Raclette.Question).toArray();  // array of 3 things
+Raclette.store.find(Raclette.Question).getEach('prompt');
+// ["<your question>", "What color is the sky?", "What color is dirt?"]
