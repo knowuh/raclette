@@ -1,1 +1,7 @@
 tmp/
+.DS_Store
+.loadpath
+.project
+apps/.DS_Store
+apps/raclette/.DS_Store
+textmate.tmproj
