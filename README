@@ -71,3 +71,13 @@ Configuring git to track a remote branch:
       url = <url>
       fetch = <refspec>
 
+
+using rvm / installing the required gems.
+
+rvm install 1.9.1
+rvm use 1.9.1
+rvm gemset create raclette
+rvm gemset use raclette
+rvm gemset import default.gems 
+
+
