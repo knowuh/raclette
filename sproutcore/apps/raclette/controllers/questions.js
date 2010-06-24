@@ -11,29 +11,42 @@
   @extends SC.Object
 */
 Raclette.questionsController = SC.ArrayController.create(
-/** @scope Raclette.question.prototype */ {
-  contentBinding: 'Raclette.activityController.questions',
-  addQuestion: function() {
-      var question;
-      debugger;
-      // create new question and add it to the list
-      question = Raclette.store.createRecord(Raclette.Question, { 
-        prompt: "<your question>"
-      });
-      
-      question.set('activity',Raclette.activityController.get('content'));
-      
-      // select new task in UI
-      this.selectObject(question); 
+/** @scope Raclette.question.prototype */
+{
+    contentBinding: 'Raclette.activityController.questions',
+    addQuestion: function() {
+        var question;
 
-      // activate inline editor once UI can repaint
-      this.invokeLater(function() {
-        var contentIndex = this.indexOf(question);
-        var list = Raclette.mainPage.getPath('mainPane.questionsView');
-        var listItem = list.itemViewForContentIndex(contentIndex);
-        listItem.beginEditing();
-      });
+        console.log("this: (Raclette.activityController)");
+        console.log(this);
+        // create new question and add it to the list
+        question = Raclette.store.createRecord(Raclette.Question, {
+            prompt: "<your question>"
+            /*,
+            activity: Raclette.activityController.get('content')*/
+        });
+        console.log("new question:");
+        console.log(question);
 
-      return YES ;
-  }
-}) ;
+        this.addObject(question);
+        console.log("this: (Raclette.activityController)");
+        console.log(this);
+        console.log("new question (should have an activity ref):");
+        console.log(question);
+
+        /*
+        // select new task in UI
+        this.selectObject(question);
+
+        // activate inline editor once UI can repaint
+        this.invokeLater(function() {
+ 	       debugger;
+           var contentIndex = this.indexOf(question);
+            var list = Raclette.mainPage.getPath('mainPane.questionsView');
+            var listItem = list.itemViewForContentIndex(contentIndex);
+            listItem.beginEditing();
+        });
+*/
+        return YES;
+    }
+});
