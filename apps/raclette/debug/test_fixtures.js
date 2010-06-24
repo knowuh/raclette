@@ -1,3 +1,4 @@
+/*globals Raclette */      // make jslint happy
 var setupFixtures = function () {
   
     Raclette.Activity.FIXTURES = [{
@@ -17,7 +18,10 @@ var setupFixtures = function () {
         activity: 1
     }];
 
-    // Create a new data source behind Raclette.store, 
-    // thereby forcing the data source to read the FIXTURES properties anew.
+    // SC.Record.fixtures is a singleton FixturesDataSource. Even if we create a new store from SC.Record.fixtures
+    // we see stale fixture data in the store from previous tests which modified the data cache in SC.Record.fixtures.
+    // We can avoid that problem by creating a wholly new data source begind the store, which must read the FIXTURE 
+    // hashes defined above to satisfy fetches for those record types.
+    
     Raclette.set("store",SC.Store.create().from(SC.FixturesDataSource.create()));
 };
