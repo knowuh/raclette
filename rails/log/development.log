@@ -1,0 +1,369 @@
+  [4;36;1mSQL (0.3ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mselect sqlite_version(*)[0m
+  [4;36;1mSQL (2.9ms)[0m   [0;1mCREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) [0m
+  [4;35;1mSQL (0.0ms)[0m   [0mPRAGMA index_list("schema_migrations")[0m
+  [4;36;1mSQL (2.7ms)[0m   [0;1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [4;35;1mSQL (0.1ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSELECT version FROM schema_migrations[0m
+Migrating to CreateActivities (20100625174957)
+  [4;35;1mSQL (0.4ms)[0m   [0mCREATE TABLE "activities" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20100625174957')[0m
+Migrating to CreateQuestions (20100625175103)
+  [4;35;1mSQL (0.3ms)[0m   [0mCREATE TABLE "questions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "prompt" text, "activity_id" integer, "created_at" datetime, "updated_at" datetime) [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20100625175103')[0m
+  [4;35;1mSQL (0.3ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSELECT version FROM schema_migrations[0m
+  [4;35;1mSQL (0.1ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mPRAGMA index_list("activities")[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mPRAGMA index_list("questions")[0m
+
+
+Processing ApplicationController#index (for 127.0.0.1 at 2010-06-25 14:10:09) [GET]
+
+ActionController::RoutingError (No route matches "/activity" with {:method=>:get}):
+  <internal:prelude>:8:in `synchronize'
+  /Users/rklancer/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:111:in `service'
+  /Users/rklancer/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:70:in `run'
+  /Users/rklancer/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/server.rb:183:in `block in start_thread'
+
+Rendering rescues/layout (not_found)
+
+
+Processing ActivitiesController#index (for 127.0.0.1 at 2010-06-25 14:10:25) [GET]
+  [4;36;1mActivity Load (0.5ms)[0m   [0;1mSELECT * FROM "activities" [0m
+Rendering template within layouts/activities
+Rendering activities/index
+Completed in 119ms (View: 89, DB: 1) | 200 OK [http://localhost/activities]
+
+
+Processing ActivitiesController#new (for 127.0.0.1 at 2010-06-25 14:10:32) [GET]
+Rendering template within layouts/activities
+Rendering activities/new
+Completed in 71ms (View: 14, DB: 0) | 200 OK [http://localhost/activities/new]
+
+
+Processing ActivitiesController#new (for 127.0.0.1 at 2010-06-25 14:10:36) [GET]
+Rendering template within layouts/activities
+Rendering activities/new
+Completed in 9ms (View: 5, DB: 0) | 200 OK [http://localhost/activities/new]
+
+
+Processing ActivitiesController#create (for 127.0.0.1 at 2010-06-25 14:10:49) [POST]
+  Parameters: {"authenticity_token"=>"JxvCqzO1VrJ0o4Z0XuffwDzXyKJEATskN+GEHOdzINo=", "activity"=>{"title"=>"Running and jumping"}, "commit"=>"Create"}
+  [4;35;1mActivity Create (0.4ms)[0m   [0mINSERT INTO "activities" ("title", "created_at", "updated_at") VALUES('Running and jumping', '2010-06-25 18:10:49', '2010-06-25 18:10:49')[0m
+Redirected to http://localhost:3000/activities/1
+Completed in 29ms (DB: 0) | 302 Found [http://localhost/activities]
+
+
+Processing ActivitiesController#show (for 127.0.0.1 at 2010-06-25 14:10:49) [GET]
+  Parameters: {"id"=>"1"}
+  [4;36;1mActivity Load (0.2ms)[0m   [0;1mSELECT * FROM "activities" WHERE ("activities"."id" = 1) [0m
+Rendering template within layouts/activities
+Rendering activities/show
+Completed in 17ms (View: 12, DB: 0) | 200 OK [http://localhost/activities/1]
+
+
+Processing QuestionsController#index (for 127.0.0.1 at 2010-06-25 14:11:17) [GET]
+  [4;35;1mQuestion Load (0.7ms)[0m   [0mSELECT * FROM "questions" [0m
+Rendering template within layouts/questions
+Rendering questions/index
+Completed in 48ms (View: 36, DB: 1) | 200 OK [http://localhost/questions]
+
+
+Processing QuestionsController#new (for 127.0.0.1 at 2010-06-25 14:11:19) [GET]
+Rendering template within layouts/questions
+Rendering questions/new
+Completed in 27ms (View: 21, DB: 0) | 200 OK [http://localhost/questions/new]
+
+
+Processing QuestionsController#create (for 127.0.0.1 at 2010-06-25 14:12:12) [POST]
+  Parameters: {"authenticity_token"=>"JxvCqzO1VrJ0o4Z0XuffwDzXyKJEATskN+GEHOdzINo=", "question"=>{"prompt"=>"Run as fast as you can and jump as high as you can. Repeat.", "activity_id"=>"1"}, "commit"=>"Create"}
+  [4;36;1mQuestion Create (1.8ms)[0m   [0;1mINSERT INTO "questions" ("prompt", "activity_id", "created_at", "updated_at") VALUES('Run as fast as you can and jump as high as you can. Repeat.', 1, '2010-06-25 18:12:12', '2010-06-25 18:12:12')[0m
+Redirected to http://localhost:3000/questions/1
+Completed in 331ms (DB: 2) | 302 Found [http://localhost/questions]
+
+
+Processing QuestionsController#show (for 127.0.0.1 at 2010-06-25 14:12:12) [GET]
+  Parameters: {"id"=>"1"}
+  [4;35;1mQuestion Load (0.2ms)[0m   [0mSELECT * FROM "questions" WHERE ("questions"."id" = 1) [0m
+Rendering template within layouts/questions
+Rendering questions/show
+Completed in 15ms (View: 9, DB: 0) | 200 OK [http://localhost/questions/1]
+
+
+Processing QuestionsController#edit (for 127.0.0.1 at 2010-06-25 14:12:17) [GET]
+  Parameters: {"id"=>"1"}
+  [4;36;1mQuestion Load (0.7ms)[0m   [0;1mSELECT * FROM "questions" WHERE ("questions"."id" = 1) [0m
+Rendering template within layouts/questions
+Rendering questions/edit
+Completed in 23ms (View: 18, DB: 1) | 200 OK [http://localhost/questions/1/edit]
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSELECT count(*) AS count_all FROM "activities" [0m
+  [4;35;1mSQL (0.2ms)[0m   [0mSELECT count(*) AS count_all FROM "questions" [0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (1.1ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.3ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mActivity Load (0.3ms)[0m   [0;1mSELECT * FROM "activities" LIMIT 1[0m
+  [4;35;1mQuestion Load (0.7ms)[0m   [0mSELECT * FROM "questions" WHERE ("questions".activity_id = 1) [0m
+  [4;36;1mActivity Load (3.9ms)[0m   [0;1mSELECT * FROM "activities" WHERE ("activities"."id" = 1) [0m
+
+
+Processing ActivitiesController#show (for 127.0.0.1 at 2010-06-25 14:18:34) [GET]
+  Parameters: {"id"=>"1"}
+  [4;35;1mActivity Load (0.2ms)[0m   [0mSELECT * FROM "activities" WHERE ("activities"."id" = 1) [0m
+Rendering template within layouts/activities
+Rendering activities/show
+Completed in 7ms (View: 2, DB: 0) | 200 OK [http://localhost/activities/1]
+
+
+Processing ActivitiesController#show to xml (for 127.0.0.1 at 2010-06-25 14:18:40) [GET]
+  Parameters: {"id"=>"1"}
+  [4;36;1mActivity Load (0.2ms)[0m   [0;1mSELECT * FROM "activities" WHERE ("activities"."id" = 1) [0m
+Completed in 17ms (View: 13, DB: 0) | 200 OK [http://localhost/activities/1.xml]
+
+
+Processing ActivitiesController#show to json (for 127.0.0.1 at 2010-06-25 14:18:43) [GET]
+  Parameters: {"id"=>"1"}
+  [4;35;1mActivity Load (0.1ms)[0m   [0mSELECT * FROM "activities" WHERE ("activities"."id" = 1) [0m
+Completed in 6ms (View: 1, DB: 0) | 406 Not Acceptable [http://localhost/activities/1.json]
+
+
+Processing ActivitiesController#show to json (for 127.0.0.1 at 2010-06-25 14:20:05) [GET]
+  Parameters: {"id"=>"1"}
+  [4;36;1mActivity Load (0.2ms)[0m   [0;1mSELECT * FROM "activities" WHERE ("activities"."id" = 1) [0m
+Completed in 7ms (View: 2, DB: 0) | 200 OK [http://localhost/activities/1.json]
+  [4;36;1mActivity Load (0.6ms)[0m   [0;1mSELECT * FROM "activities" LIMIT 1[0m
+
+
+Processing ActivitiesController#show to json (for 127.0.0.1 at 2010-06-25 14:35:15) [GET]
+  Parameters: {"id"=>"1"}
+  [4;35;1mActivity Load (0.2ms)[0m   [0mSELECT * FROM "activities" WHERE ("activities"."id" = 1) [0m
+Completed in 7ms (View: 2, DB: 0) | 200 OK [http://localhost/activities/1.json]
+
+
+Processing ActivitiesController#show to json (for 127.0.0.1 at 2010-06-25 14:35:34) [GET]
+  Parameters: {"id"=>"1"}
+  [4;36;1mActivity Load (0.2ms)[0m   [0;1mSELECT * FROM "activities" WHERE ("activities"."id" = 1) [0m
+Completed in 38ms (View: 14, DB: 0) | 200 OK [http://localhost/activities/1.json]
+
+
+Processing ActivitiesController#show to json (for 127.0.0.1 at 2010-06-25 14:38:27) [GET]
+  Parameters: {"id"=>"1"}
+  [4;35;1mActivity Load (0.2ms)[0m   [0mSELECT * FROM "activities" WHERE ("activities"."id" = 1) [0m
+Completed in 9ms (View: 1, DB: 0) | 200 OK [http://localhost/activities/1.json]
+
+
+Processing QuestionsController#show to json (for 127.0.0.1 at 2010-06-25 14:38:58) [GET]
+  Parameters: {"id"=>"1"}
+  [4;36;1mQuestion Load (0.2ms)[0m   [0;1mSELECT * FROM "questions" WHERE ("questions"."id" = 1) [0m
+Completed in 11ms (View: 1, DB: 0) | 406 Not Acceptable [http://localhost/questions/1.json]
+
+
+Processing QuestionsController#show (for 127.0.0.1 at 2010-06-25 14:39:03) [GET]
+  Parameters: {"id"=>"1"}
+  [4;35;1mQuestion Load (0.2ms)[0m   [0mSELECT * FROM "questions" WHERE ("questions"."id" = 1) [0m
+Rendering template within layouts/questions
+Rendering questions/show
+Completed in 30ms (View: 25, DB: 0) | 200 OK [http://localhost/questions/1]
+
+
+Processing QuestionsController#show to xml (for 127.0.0.1 at 2010-06-25 14:39:05) [GET]
+  Parameters: {"id"=>"1"}
+  [4;36;1mQuestion Load (0.2ms)[0m   [0;1mSELECT * FROM "questions" WHERE ("questions"."id" = 1) [0m
+Completed in 7ms (View: 3, DB: 0) | 200 OK [http://localhost/questions/1.xml]
+
+
+Processing ApplicationController#show to json (for 127.0.0.1 at 2010-06-25 14:40:42) [GET]
+  Parameters: {"id"=>"1"}
+
+SyntaxError (/Users/rklancer/dev/raclette/rails/app/controllers/questions_controller.rb:22: syntax error, unexpected keyword_end, expecting '}'
+/Users/rklancer/dev/raclette/rails/app/controllers/questions_controller.rb:84: syntax error, unexpected keyword_end, expecting '}'):
+  <internal:prelude>:8:in `synchronize'
+  /Users/rklancer/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:111:in `service'
+  /Users/rklancer/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/httpserver.rb:70:in `run'
+  /Users/rklancer/.rvm/rubies/ruby-1.9.1-p378/lib/ruby/1.9.1/webrick/server.rb:183:in `block in start_thread'
+
+Rendered rescues/_trace (60.9ms)
+Rendered rescues/_request_and_response (1.1ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing QuestionsController#show to json (for 127.0.0.1 at 2010-06-25 14:41:13) [GET]
+  Parameters: {"id"=>"1"}
+  [4;35;1mQuestion Load (0.2ms)[0m   [0mSELECT * FROM "questions" WHERE ("questions"."id" = 1) [0m
+Completed in 7ms (View: 1, DB: 0) | 200 OK [http://localhost/questions/1.json]
+
+
+Processing QuestionsController#show to json (for 127.0.0.1 at 2010-06-25 14:41:17) [GET]
+  Parameters: {"id"=>"1"}
+  [4;36;1mQuestion Load (0.2ms)[0m   [0;1mSELECT * FROM "questions" WHERE ("questions"."id" = 1) [0m
+Completed in 6ms (View: 1, DB: 0) | 200 OK [http://localhost/questions/1.json]
+
+
+Processing QuestionsController#show to json (for 127.0.0.1 at 2010-06-25 14:41:34) [GET]
+  Parameters: {"id"=>"1"}
+  [4;35;1mQuestion Load (0.2ms)[0m   [0mSELECT * FROM "questions" WHERE ("questions"."id" = 1) [0m
+Completed in 7ms (View: 1, DB: 0) | 200 OK [http://localhost/questions/1.json]
+
+
+Processing QuestionsController#show to json (for 127.0.0.1 at 2010-06-25 14:42:04) [GET]
+  Parameters: {"id"=>"1"}
+  [4;36;1mQuestion Load (0.2ms)[0m   [0;1mSELECT * FROM "questions" WHERE ("questions"."id" = 1) [0m
+Completed in 54ms (View: 1, DB: 0) | 200 OK [http://localhost/questions/1.json]
+
+
+Processing QuestionsController#show to json (for 127.0.0.1 at 2010-06-25 14:42:29) [GET]
+  Parameters: {"id"=>"1"}
+  [4;35;1mQuestion Load (0.2ms)[0m   [0mSELECT * FROM "questions" WHERE ("questions"."id" = 1) [0m
+Completed in 9ms (View: 1, DB: 0) | 200 OK [http://localhost/questions/1.json]
+
+
+Processing ActivitiesController#show to json (for 127.0.0.1 at 2010-06-25 14:42:36) [GET]
+  Parameters: {"id"=>"1"}
+  [4;36;1mActivity Load (0.1ms)[0m   [0;1mSELECT * FROM "activities" WHERE ("activities"."id" = 1) [0m
+Completed in 6ms (View: 1, DB: 0) | 200 OK [http://localhost/activities/1.json]
+
+
+Processing ActivitiesController#show to json (for 127.0.0.1 at 2010-06-25 14:45:31) [GET]
+  Parameters: {"id"=>"1"}
+  [4;35;1mActivity Load (0.2ms)[0m   [0mSELECT * FROM "activities" WHERE ("activities"."id" = 1) [0m
+Completed in 7ms (View: 1, DB: 0) | 200 OK [http://localhost/activities/1.json]
+
+
+Processing QuestionsController#show to json (for 127.0.0.1 at 2010-06-25 14:45:38) [GET]
+  Parameters: {"id"=>"1"}
+  [4;36;1mQuestion Load (0.2ms)[0m   [0;1mSELECT * FROM "questions" WHERE ("questions"."id" = 1) [0m
+Completed in 6ms (View: 1, DB: 0) | 200 OK [http://localhost/questions/1.json]
+
+
+Processing ActivitiesController#show to json (for 127.0.0.1 at 2010-06-25 14:45:47) [GET]
+  Parameters: {"id"=>"1"}
+  [4;35;1mActivity Load (0.2ms)[0m   [0mSELECT * FROM "activities" WHERE ("activities"."id" = 1) [0m
+Completed in 7ms (View: 1, DB: 0) | 200 OK [http://localhost/activities/1.json]
+
+
+Processing ActivitiesController#show to json (for 127.0.0.1 at 2010-06-25 14:46:19) [GET]
+  Parameters: {"id"=>"1"}
+  [4;36;1mActivity Load (0.2ms)[0m   [0;1mSELECT * FROM "activities" WHERE ("activities"."id" = 1) [0m
+Completed in 12ms (View: 4, DB: 0) | 200 OK [http://localhost/activities/1.json]
+
+
+Processing ActivitiesController#show to json (for 127.0.0.1 at 2010-06-25 14:47:07) [GET]
+  Parameters: {"id"=>"1"}
+  [4;35;1mActivity Load (0.1ms)[0m   [0mSELECT * FROM "activities" WHERE ("activities"."id" = 1) [0m
+  [4;36;1mQuestion Load (0.3ms)[0m   [0;1mSELECT * FROM "questions" WHERE ("questions".activity_id = 1) [0m
+Completed in 12ms (View: 1, DB: 0) | 200 OK [http://localhost/activities/1.json]
+
+
+Processing ActivitiesController#show to json (for 127.0.0.1 at 2010-06-25 14:47:55) [GET]
+  Parameters: {"id"=>"1"}
+  [4;35;1mActivity Load (0.2ms)[0m   [0mSELECT * FROM "activities" WHERE ("activities"."id" = 1) [0m
+  [4;36;1mQuestion Load (0.4ms)[0m   [0;1mSELECT * FROM "questions" WHERE ("questions".activity_id = 1) [0m
+Completed in 16ms (View: 1, DB: 1) | 200 OK [http://localhost/activities/1.json]
+
+
+Processing ActivitiesController#show to json (for 127.0.0.1 at 2010-06-25 14:48:35) [GET]
+  Parameters: {"id"=>"1"}
+  [4;35;1mActivity Load (0.2ms)[0m   [0mSELECT * FROM "activities" WHERE ("activities"."id" = 1) [0m
+  [4;36;1mQuestion Load (0.7ms)[0m   [0;1mSELECT * FROM "questions" WHERE ("questions".activity_id = 1) [0m
+Completed in 10ms (View: 1, DB: 1) | 200 OK [http://localhost/activities/1.json]
+
+
+Processing ActivitiesController#show to json (for 127.0.0.1 at 2010-06-25 14:49:00) [GET]
+  Parameters: {"id"=>"1"}
+  [4;35;1mActivity Load (0.2ms)[0m   [0mSELECT * FROM "activities" WHERE ("activities"."id" = 1) [0m
+  [4;36;1mQuestion Load (0.3ms)[0m   [0;1mSELECT * FROM "questions" WHERE ("questions".activity_id = 1) [0m
+Completed in 19ms (View: 1, DB: 0) | 200 OK [http://localhost/activities/1.json]
+
+
+Processing ActivitiesController#show to json (for 127.0.0.1 at 2010-06-25 14:50:13) [GET]
+  Parameters: {"id"=>"1"}
+  [4;35;1mActivity Load (3.7ms)[0m   [0mSELECT * FROM "activities" WHERE ("activities"."id" = 1) [0m
+  [4;36;1mQuestion Load (0.2ms)[0m   [0;1mSELECT * FROM "questions" WHERE ("questions".activity_id = 1) [0m
+Completed in 14ms (View: 1, DB: 4) | 200 OK [http://localhost/activities/1.json]
+
+
+Processing ActivitiesController#show to json (for 127.0.0.1 at 2010-06-25 14:50:41) [GET]
+  Parameters: {"id"=>"1"}
+  [4;35;1mActivity Load (0.2ms)[0m   [0mSELECT * FROM "activities" WHERE ("activities"."id" = 1) [0m
+  [4;36;1mQuestion Load (0.2ms)[0m   [0;1mSELECT * FROM "questions" WHERE ("questions".activity_id = 1) [0m
+Completed in 13ms (View: 1, DB: 0) | 200 OK [http://localhost/activities/1.json]
+
+
+Processing ActivitiesController#show to json (for 127.0.0.1 at 2010-06-25 14:51:07) [GET]
+  Parameters: {"id"=>"1"}
+  [4;35;1mActivity Load (0.2ms)[0m   [0mSELECT * FROM "activities" WHERE ("activities"."id" = 1) [0m
+  [4;36;1mQuestion Load (0.2ms)[0m   [0;1mSELECT * FROM "questions" WHERE ("questions".activity_id = 1) [0m
+Completed in 13ms (View: 1, DB: 0) | 200 OK [http://localhost/activities/1.json]
+
+
+Processing ActivitiesController#show to json (for 127.0.0.1 at 2010-06-25 14:52:18) [GET]
+  Parameters: {"id"=>"1"}
+  [4;35;1mActivity Load (1.5ms)[0m   [0mSELECT * FROM "activities" WHERE ("activities"."id" = 1) [0m
+  [4;36;1mQuestion Load (0.3ms)[0m   [0;1mSELECT * FROM "questions" WHERE ("questions".activity_id = 1) [0m
+Completed in 13ms (View: 1, DB: 2) | 200 OK [http://localhost/activities/1.json]
+
+
+Processing ActivitiesController#show to json (for 127.0.0.1 at 2010-06-25 15:04:47) [GET]
+  Parameters: {"id"=>"1"}
+  [4;35;1mActivity Load (0.2ms)[0m   [0mSELECT * FROM "activities" WHERE ("activities"."id" = 1) [0m
+  [4;36;1mQuestion Load (0.4ms)[0m   [0;1mSELECT * FROM "questions" WHERE ("questions".activity_id = 1) [0m
+Completed in 14ms (View: 1, DB: 1) | 200 OK [http://localhost/activities/1.json]
+
+
+Processing ActivitiesController#show to json (for 127.0.0.1 at 2010-06-25 15:04:56) [GET]
+  Parameters: {"id"=>"1"}
+  [4;35;1mActivity Load (0.2ms)[0m   [0mSELECT * FROM "activities" WHERE ("activities"."id" = 1) [0m
+  [4;36;1mQuestion Load (0.2ms)[0m   [0;1mSELECT * FROM "questions" WHERE ("questions".activity_id = 1) [0m
+Completed in 53ms (View: 1, DB: 0) | 200 OK [http://localhost/activities/1.json]
+
+
+Processing ActivitiesController#show to json (for 127.0.0.1 at 2010-06-25 15:05:01) [GET]
+  Parameters: {"id"=>"1"}
+  [4;35;1mActivity Load (0.1ms)[0m   [0mSELECT * FROM "activities" WHERE ("activities"."id" = 1) [0m
+  [4;36;1mQuestion Load (0.2ms)[0m   [0;1mSELECT * FROM "questions" WHERE ("questions".activity_id = 1) [0m
+Completed in 9ms (View: 1, DB: 0) | 200 OK [http://localhost/activities/1.json]
+
+
+Processing ActivitiesController#index (for 127.0.0.1 at 2010-06-25 15:05:40) [GET]
+  [4;35;1mActivity Load (0.5ms)[0m   [0mSELECT * FROM "activities" [0m
+Rendering template within layouts/activities
+Rendering activities/index
+Completed in 25ms (View: 21, DB: 0) | 200 OK [http://localhost/activities]
+
+
+Processing QuestionsController#index (for 127.0.0.1 at 2010-06-25 15:05:47) [GET]
+  [4;36;1mQuestion Load (0.4ms)[0m   [0;1mSELECT * FROM "questions" [0m
+Rendering template within layouts/questions
+Rendering questions/index
+Completed in 16ms (View: 12, DB: 0) | 200 OK [http://localhost/questions]
+
+
+Processing QuestionsController#show to json (for 127.0.0.1 at 2010-06-25 15:06:48) [GET]
+  Parameters: {"id"=>"1"}
+  [4;35;1mQuestion Load (0.2ms)[0m   [0mSELECT * FROM "questions" WHERE ("questions"."id" = 1) [0m
+Completed in 7ms (View: 1, DB: 0) | 200 OK [http://localhost/questions/1.json]

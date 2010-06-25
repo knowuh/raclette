@@ -1,8 +1,9 @@
-tmp/
-.DS_Store
+sproutcore/tmp/
+rails/config/database.yml
+rails/log/*.log
+rails/db/*.sqlite3
+rails/db/*.db
+textmate.tmproj
 .loadpath
 .project
-apps/.DS_Store
-apps/raclette/.DS_Store
-rails/config/database.yml
-textmate.tmproj
+*/.DS_Store
