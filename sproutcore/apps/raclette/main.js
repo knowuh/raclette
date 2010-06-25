@@ -21,7 +21,13 @@ Raclette.main = function main() {
 
   // Step 2. Set the content property on your primary controller.
   // This will make your app come alive!
-  var firstActivity = Raclette.store.find(Raclette.Activity,1);
+  
+
+  var activities = Raclette.store.find(Raclette.ACTIVITIES_QUERY);
+  debugger;
+  var firstActivity = activities.objectAt(0);
+  
+  //var firstActivity = Raclette.store.find(Raclette.Activity,1);
   Raclette.activityController.set('content',firstActivity);
   
   // TODO: Set the content property on your primary controller
