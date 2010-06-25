@@ -21,6 +21,7 @@ Raclette.questionsController = SC.ArrayController.create(
         console.log(this);
         // create new question and add it to the list
         question = Raclette.store.createRecord(Raclette.Question, {
+            guid: 3,
             prompt: "<your question>"
             /*,
             activity: Raclette.activityController.get('content')*/
@@ -34,19 +35,17 @@ Raclette.questionsController = SC.ArrayController.create(
         console.log("new question (should have an activity ref):");
         console.log(question);
 
-        /*
         // select new task in UI
         this.selectObject(question);
 
         // activate inline editor once UI can repaint
         this.invokeLater(function() {
- 	       debugger;
-           var contentIndex = this.indexOf(question);
+            var contentIndex = this.indexOf(question);
             var list = Raclette.mainPage.getPath('mainPane.questionsView');
             var listItem = list.itemViewForContentIndex(contentIndex);
             listItem.beginEditing();
         });
-*/
+
         return YES;
     }
 });
