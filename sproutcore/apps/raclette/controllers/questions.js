@@ -37,7 +37,7 @@ Raclette.questionsController = SC.ArrayController.create(
         var activity = question.get('activity');
         
         // Commits the record. Not required for the UI to work but usefully demonstrates the change of the records' status.
-        // All that 
+        // A single call to commitRecords would normally suffice here; it will execute after the runloop.
         console.group('Raclette.store.commitRecords()');
             SC.run( function () {
                 console.log('Before: activity = %s', activity.toString());
