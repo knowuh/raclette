@@ -24,13 +24,17 @@ Raclette.questionsController = SC.ArrayController.create(
         question = Raclette.store.createRecord(Raclette.Question, {
             guid: Raclette.Question.nextGuid++,         // see fixtures/question.js
             prompt: "<your question>"
-            //,activity: Raclette.activityController.get('content')             // just plain doesn't work.
+            //activity: Raclette.activityController.get('guid')       // this works. Best approach?
+            //activity: Raclette.activityController.get('content')  // this does not work.
+            //activity: 'Raclette.activityController.content'       // this does not work either.
         });
 
         // add the question to 'this' which, remember, proxies the 'questions' property of the current Activity
         console.group('questionsController.addObject()');
             console.log('Before: question.activity.guid = %s', question.getPath('activity.guid'));
-            this.addObject(question);                           // this is probably the best approach
+            this.pushObject(question);                                                      // second best approach?
+            //question.set('activity', Raclette.activityController.get('content'));         // works too.
+            //Raclette.activityController.get('questions').pushObject(question);              // works too.
             console.log('After: question.activity.guid = %s', question.getPath('activity.guid'));
         console.groupEnd();
         
