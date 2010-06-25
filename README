@@ -99,3 +99,13 @@ Raclette.store.find(Raclette.Question).get('length');  //3
 Raclette.store.find(Raclette.Question).toArray();  // array of 3 things
 Raclette.store.find(Raclette.Question).getEach('prompt');
 // ["<your question>", "What color is the sky?", "What color is dirt?"]
+
+Handy console tip: To see changes, you may need to incorporate them into a runloop
+
+This change won't be visible until a DOM event occurs (like mousing over the window):
+  Raclette.mainPage.mainPane.addQuestionButton.set('title', 'Changed!')
+
+But this change would be visible immediately:
+  SC.run(function () { Raclette.mainPage.mainPane.addQuestionButton.set('title', 'Immediate!') })
+
+
