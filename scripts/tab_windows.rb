@@ -60,3 +60,15 @@ class SafariTabs
   end
 end
 
+class BrowserTabs
+  def self.make(browser, urls)
+    browser_app = app(browser)
+    browser_app.open_location(urls[0])
+    urls.delete_at(0)
+    urls.each do |url|
+      # app("System Events").application_processes["#{browser}.app"].keystroke("t", :using => :command_down)
+      browser_app.open_location(url)
+    end
+  end
+end
+
