@@ -4,4 +4,5 @@ tmp/
 .project
 apps/.DS_Store
 apps/raclette/.DS_Store
+rails/config/database.yml
 textmate.tmproj

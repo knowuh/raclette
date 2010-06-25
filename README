@@ -109,3 +109,50 @@ But this change would be visible immediately:
   SC.run(function () { Raclette.mainPage.mainPane.addQuestionButton.set('title', 'Immediate!') })
 
 
+### How we initially set up Rails
+
+Step 1.
+  rails (master)$ script/generate rspec_scaffold Activity title:string
+        create  app/models/
+        [etc.]
+        create  db/migrate/20100625174957_create_activities.rb
+         route  map.resources :activities
+Step 2.
+  rails (master)$ script/generate rspec_scaffold Question prompt:text activity_id:integer
+        exists  app/models/
+        [etc.]
+        exists  db/migrate
+        create  db/migrate/20100625175103_create_questions.rb
+         route  map.resources :questions
+Step 3.
+  rails (master)$ rake db:migrate
+  (in /Users/rklancer/dev/raclette/rails)
+  ==  CreateActivities: migrating ===============================================
+  -- create_table(:activities)
+     -> 0.0012s
+  ==  CreateActivities: migrated (0.0013s) ======================================
+
+  ==  CreateQuestions: migrating ================================================
+  -- create_table(:questions)
+     -> 0.0010s
+  ==  CreateQuestions: migrated (0.0016s) =======================================
+
+Step 4.
+  rails (master)$ script/server 
+  => Booting WEBrick
+  => Rails 2.3.8 application starting on http://0.0.0.0:3000
+  => Call with -d to detach
+  => Ctrl-C to shutdown server
+  [2010-06-25 14:09:31] INFO  WEBrick 1.3.1
+  [2010-06-25 14:09:31] INFO  ruby 1.9.1 (2010-01-10) [i386-darwin10.3.0]
+  [2010-06-25 14:09:31] INFO  WEBrick::HTTPServer#start: pid=44284 port=3000
+
+Step 5.
+# hit http://localhost:3000/activities and http://localhost:3000/questions in a browser
+# and create an Activity and a Question. Open a new console. Then the following should work...
+
+  rails (master)$ curl localhost:3000/activities/1.json
+  {"activity":{"title":"Running and jumping","guid":1,"questions":[{"guid":1}]}}
+
+  rails (master)$ curl localhost:3000/questions/1.json
+  {"question":{"activity_id":1,"prompt":"Run as fast as you can and jump as high as you can. Repeat.","guid":1}}
