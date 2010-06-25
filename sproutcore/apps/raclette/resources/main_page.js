@@ -11,7 +11,9 @@ Raclette.mainPage = SC.Page.design({
   // Add childViews to this pane for views to display immediately on page 
   // load.
   mainPane: SC.MainPane.design({
+      
     childViews: 'labelView questionsView addQuestionButton'.w(),
+
     labelView: SC.LabelView.design({
       layout: {
         top: 10,
@@ -23,11 +25,12 @@ Raclette.mainPage = SC.Page.design({
       tagName: "h1",
       valueBinding: 'Raclette.activityController.title'
     }),
+
     questionsView: SC.ListView.design({
       layout: {
         top: 50,
         width: 120,
-        height: 80,
+        height: 63,
         left: 10
       },
       contentBinding: 'Raclette.questionsController.arrangedObjects',
@@ -37,6 +40,7 @@ Raclette.mainPage = SC.Page.design({
       canEditContent: YES,
       canDeleteContent: YES
     }),
+
     addQuestionButton: SC.ButtonView.design({
       layout: {
         top: 50,
@@ -48,7 +52,5 @@ Raclette.mainPage = SC.Page.design({
       target: "Raclette.questionsController",
       action: "addQuestion"
     })
-
   })
-
 });
