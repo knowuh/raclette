@@ -16,7 +16,7 @@ Raclette.questionsController = SC.ArrayController.create(
     contentBinding: 'Raclette.activityController.questions',
     
     addQuestion: function() {
-        console.group('Raclette.questionsController.addQuestion()');
+//        console.group('Raclette.questionsController.addQuestion()');
 
         var question;
 
@@ -30,29 +30,29 @@ Raclette.questionsController = SC.ArrayController.create(
         });
 
         // add the question to 'this' which, remember, proxies the 'questions' property of the current Activity
-        console.group('questionsController.addObject()');
-            console.log('Before: question.activity.guid = %s', question.getPath('activity.guid'));
+        // console.group('questionsController.pushObject()');
+        //     console.log('Before: question.activity.guid = %s', question.getPath('activity.guid'));
             this.pushObject(question);                                                      // second best approach?
             //question.set('activity', Raclette.activityController.get('content'));         // works too.
             //Raclette.activityController.get('questions').pushObject(question);              // works too.
-            console.log('After: question.activity.guid = %s', question.getPath('activity.guid'));
-        console.groupEnd();
+        //     console.log('After: question.activity.guid = %s', question.getPath('activity.guid'));
+        // console.groupEnd();
         
         var activity = question.get('activity');
         
         // Commits the record. Not required for the UI to work but usefully demonstrates the change of the records' status.
         // A single call to commitRecords would normally suffice here; it will execute after the runloop.
-        console.group('Raclette.store.commitRecords()');
-            SC.run( function () {
-                console.log('Before: activity = %s', activity.toString());
-                console.log('Before: question = %s', question.toString());    
-                Raclette.store.commitRecords();
-                console.log('Immediately after: activity = %s', activity.toString());
-                console.log('Immediately after: question = %s', question.toString());                   
-            });
-            console.log('After runloop: activity = %s', activity.toString());
-            console.log('After runloop: question = %s', question.toString());           
-        console.groupEnd();
+        // console.group('Raclette.store.commitRecords()');
+        //     SC.run( function () {
+        //         console.log('Before: activity = %s', activity.toString());
+        //         console.log('Before: question = %s', question.toString());    
+        //         Raclette.store.commitRecords();
+        //         console.log('Immediately after: activity = %s', activity.toString());
+        //         console.log('Immediately after: question = %s', question.toString());                   
+        //     });
+        //     console.log('After runloop: activity = %s', activity.toString());
+        //     console.log('After runloop: question = %s', question.toString());           
+        // console.groupEnd();
         
         // select new task in UI
         this.selectObject(question);
@@ -65,7 +65,7 @@ Raclette.questionsController = SC.ArrayController.create(
             listItem.beginEditing();
         });     
 
-        console.groupEnd();
+//        console.groupEnd();
         return YES;
     }
 });
