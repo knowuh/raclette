@@ -30,7 +30,7 @@ require 'appscript'
 include Appscript
 
 class TabWindows
-  def self.make (name, tab_commands)
+  def self.make(name, tab_commands)
     term = app('Terminal')
     term.do_script("")
     current_window = app('Terminal').windows[1].get
@@ -50,3 +50,25 @@ class TabWindows
     app("System Events").application_processes["Terminal.app"].keystroke("}", :using => :command_down)
   end
 end
+
+class SafariTabs
+  def self.make(urls)
+    browser = app('Safari')
+    urls.each do |url|
+      browser.open_location(url)
+    end
+  end
+end
+
+class BrowserTabs
+  def self.make(browser, urls)
+    browser_app = app(browser)
+    browser_app.open_location(urls[0])
+    urls.delete_at(0)
+    urls.each do |url|
+      # app("System Events").application_processes["#{browser}.app"].keystroke("t", :using => :command_down)
+      browser_app.open_location(url)
+    end
+  end
+end
+
