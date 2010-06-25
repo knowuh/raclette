@@ -19,3 +19,5 @@ Raclette.Question.FIXTURES = [
   }
 
 ];
+
+Raclette.Question.nextGuid = 3;
