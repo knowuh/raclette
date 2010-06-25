@@ -79,26 +79,23 @@ Configuring git to track a remote branch:
       url = <url>
       fetch = <refspec>
 
+Using rvm and installing the required gems.
 
-using rvm / installing the required gems.
-
-rvm install 1.9.1
-rvm use 1.9.1
-rvm gemset create raclette
-rvm gemset use raclette
-rvm gemset import default.gems 
-
-
+  rvm install 1.9.1
+  rvm use 1.9.1
+  rvm gemset create raclette
+  rvm gemset use raclette
+  rvm gemset import default.gems 
 
 
 Trying to find new records in the console:
 
-Raclette.Questions.FIXTURES; // confusing (contains 2 objects ??)
+  Raclette.Questions.FIXTURES; // confusing (contains 2 objects ??)
 
-Raclette.store.find(Raclette.Question).get('length');  //3
-Raclette.store.find(Raclette.Question).toArray();  // array of 3 things
-Raclette.store.find(Raclette.Question).getEach('prompt');
-// ["<your question>", "What color is the sky?", "What color is dirt?"]
+  Raclette.store.find(Raclette.Question).get('length');  //3
+  Raclette.store.find(Raclette.Question).toArray();  // array of 3 things
+  Raclette.store.find(Raclette.Question).getEach('prompt');
+  // ["<your question>", "What color is the sky?", "What color is dirt?"]
 
 Handy console tip: To see changes, you may need to incorporate them into a runloop
 
@@ -108,4 +105,18 @@ This change won't be visible until a DOM event occurs (like mousing over the win
 But this change would be visible immediately:
   SC.run(function () { Raclette.mainPage.mainPane.addQuestionButton.set('title', 'Immediate!') })
 
+See the code of a function in the console (* webkit tip only)
 
+If you want to see the code of a function in the console just enter the full name of the function
+
+  > Raclette.questionsController.addObject
+    function (object) {
+        if (!this.get('canAddContent')) throw "%@ cannot add content".fmt(this);
+
+        var content = this.get('content');
+        if (content.isSCArray) content.pushObject(object);
+        else if (content.addObject) content.addObject(object);
+        else throw "%@.content does not support addObject".fmt(this);
+
+        return this;
+      }
