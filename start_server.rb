@@ -16,6 +16,7 @@ tab_commands = [
 
 TabWindows.make('raclette', tab_commands)
 
+puts "sleeping 5s before opening browser windows ..."
 sleep(5)
 
 browser_urls = %w{
@@ -23,4 +24,8 @@ browser_urls = %w{
   http://0.0.0.0:4020/static/raclette/en/current/tests.html
 }
 
+puts "opening Safari tabs"
 SafariTabs.make(browser_urls)
+
+puts "opening FireFox windows"
+BrowserTabs.make('FireFox', browser_urls)
