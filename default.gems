@@ -18,8 +18,10 @@ rack -v1.2.1
 rack -v1.1.0
 rack-test -v0.5.4
 rails -v2.3.8
+rake -v0.8.7
 rspec -v1.3.0
 rspec-rails -v1.3.2
 sproutcore -v1.0.1046
+sqlite3 -v0.1.1
 thin -v1.2.7
 thor -v0.13.6
