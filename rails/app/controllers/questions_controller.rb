@@ -18,7 +18,8 @@ class QuestionsController < ApplicationController
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @question }
-      format.json { render :json => @question.to_json(:methods => :guid, :only => [:guid, :prompt, :activity_id]) }
+      # format.json { render :json => @question.to_json(:methods => :guid, :only => [:guid, :prompt, :activity_id]) }
+      format.json { render :json => @question.to_json}
     end
   end
 

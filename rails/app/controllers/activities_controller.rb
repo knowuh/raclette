@@ -8,8 +8,9 @@ class ActivitiesController < ApplicationController
       format.html # index.html.erb
       format.xml  { render :xml => @activities }
       format.json do
-        render :json => {:content => @activities.to_json(:methods => :guid, :only => [:guid, :title], :include => { 
-        :questions => { :methods => :guid, :only => :guid } }) }
+        # render :json => {:content => @activities.to_json(:methods => :guid, :only => [:guid, :title], :include => { 
+        # :questions => { :methods => :guid, :only => :guid } }) }
+        render :json => { :content => @activities.to_json }
       end
         
     end
@@ -24,8 +25,9 @@ class ActivitiesController < ApplicationController
       format.html # show.html.erb
       format.xml  { render :xml => @activity }
       # TODO DRY this up.
-      format.json { render :json => @activity.to_json(:methods => :guid, :only => [:guid, :title], :include => { 
-        :questions => { :methods => :guid, :only => :guid } }) }
+      # format.json { render :json => @activity.to_json(:methods => :guid, :only => [:guid, :title], :include => { 
+      #   :questions => { :methods => :guid, :only => :guid } }) }
+      format.json { render :json => @activity.to_json }
     end
   end
 

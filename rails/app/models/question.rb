@@ -1,7 +1,10 @@
 class Question < ActiveRecord::Base
   belongs_to :activity
   
-  def guid
-    id
+  def to_json
+    {
+      :prompt => prompt,
+      :guid => id
+    }.to_json
   end
 end
