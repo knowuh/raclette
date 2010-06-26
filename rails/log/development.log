@@ -367,3 +367,309 @@ Processing QuestionsController#show to json (for 127.0.0.1 at 2010-06-25 15:06:4
   Parameters: {"id"=>"1"}
   [4;35;1mQuestion Load (0.2ms)[0m   [0mSELECT * FROM "questions" WHERE ("questions"."id" = 1) [0m
 Completed in 7ms (View: 1, DB: 0) | 200 OK [http://localhost/questions/1.json]
+
+
+Processing ActivitiesController#index to json (for 127.0.0.1 at 2010-06-25 22:16:41) [GET]
+  [4;36;1mActivity Load (0.0ms)[0m   [0;1mSQLite3::SQLException: no such table: activities: SELECT * FROM "activities" [0m
+
+ActiveRecord::StatementInvalid (SQLite3::SQLException: no such table: activities: SELECT * FROM "activities" ):
+  app/controllers/activities_controller.rb:5:in `index'
+
+Rendered rescues/_trace (39.0ms)
+Rendered rescues/_request_and_response (1.2ms)
+Rendering rescues/layout (internal_server_error)
+  [4;36;1mSQL (0.2ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mselect sqlite_version(*)[0m
+  [4;36;1mSQL (1.8ms)[0m   [0;1mCREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) [0m
+  [4;35;1mSQL (0.0ms)[0m   [0mPRAGMA index_list("schema_migrations")[0m
+  [4;36;1mSQL (1.6ms)[0m   [0;1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [4;35;1mSQL (0.1ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSELECT version FROM schema_migrations[0m
+Migrating to CreateActivities (20100625174957)
+  [4;35;1mSQL (0.8ms)[0m   [0mCREATE TABLE "activities" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20100625174957')[0m
+Migrating to CreateQuestions (20100625175103)
+  [4;35;1mSQL (0.4ms)[0m   [0mCREATE TABLE "questions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "prompt" text, "activity_id" integer, "created_at" datetime, "updated_at" datetime) [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20100625175103')[0m
+  [4;35;1mSQL (0.2ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSELECT version FROM schema_migrations[0m
+  [4;35;1mSQL (0.2ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mPRAGMA index_list("activities")[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mPRAGMA index_list("questions")[0m
+
+
+Processing ActivitiesController#index to json (for 127.0.0.1 at 2010-06-25 22:17:37) [GET]
+  [4;36;1mActivity Load (0.4ms)[0m   [0;1mSELECT * FROM "activities" [0m
+Completed in 80ms (View: 68, DB: 0) | 200 OK [http://localhost/rails/activities.json]
+
+
+Processing Rails::InfoController#properties (for 127.0.0.1 at 2010-06-25 22:18:17) [GET]
+  [4;35;1mSQL (0.5ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSELECT version FROM schema_migrations[0m
+Completed in 60ms (View: 11, DB: 1) | 200 OK [http://localhost/rails/info/properties]
+
+
+Processing ActivitiesController#index to json (for 127.0.0.1 at 2010-06-25 22:26:41) [GET]
+  [4;35;1mActivity Load (0.3ms)[0m   [0mSELECT * FROM "activities" [0m
+Completed in 8ms (View: 1, DB: 0) | 200 OK [http://localhost/rails/activities.json]
+
+
+Processing ActivitiesController#index (for 127.0.0.1 at 2010-06-25 22:27:00) [GET]
+  [4;36;1mActivity Load (0.4ms)[0m   [0;1mSELECT * FROM "activities" [0m
+Rendering template within layouts/activities
+Rendering activities/index
+Completed in 107ms (View: 92, DB: 0) | 200 OK [http://localhost/rails/activities]
+
+
+Processing Rails::InfoController#properties (for 127.0.0.1 at 2010-06-25 22:39:58) [GET]
+  [4;36;1mSQL (0.6ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT version FROM schema_migrations[0m
+Completed in 67ms (View: 10, DB: 1) | 200 OK [http://localhost/rails/info/properties]
+
+
+Processing ActivitiesController#index (for 127.0.0.1 at 2010-06-25 22:40:15) [GET]
+  [4;36;1mActivity Load (13.5ms)[0m   [0;1mSELECT * FROM "activities" [0m
+Rendering template within layouts/activities
+Rendering activities/index
+Completed in 124ms (View: 69, DB: 13) | 200 OK [http://localhost/rails/activities]
+
+
+Processing ActivitiesController#new (for 127.0.0.1 at 2010-06-25 22:40:20) [GET]
+Rendering template within layouts/activities
+Rendering activities/new
+Completed in 111ms (View: 102, DB: 0) | 200 OK [http://localhost/rails/activities/new]
+
+
+Processing ActivitiesController#create (for 127.0.0.1 at 2010-06-25 22:40:34) [POST]
+  Parameters: {"commit"=>"Create", "authenticity_token"=>"nCnd+Xcu7wEt2n7AcSAPVQsVzyHxvwEtMnPMlQGDXjM=", "activity"=>{"title"=>"activity1title"}}
+  [4;35;1mActivity Create (0.6ms)[0m   [0mINSERT INTO "activities" ("created_at", "title", "updated_at") VALUES('2010-06-26 05:40:34', 'activity1title', '2010-06-26 05:40:34')[0m
+Redirected to http://localhost:3001/rails/activities/1
+Completed in 11ms (DB: 1) | 302 Found [http://localhost/rails/activities]
+
+
+Processing ActivitiesController#show (for 127.0.0.1 at 2010-06-25 22:40:34) [GET]
+  Parameters: {"id"=>"1"}
+  [4;36;1mActivity Load (0.1ms)[0m   [0;1mSELECT * FROM "activities" WHERE ("activities"."id" = 1) [0m
+Rendering template within layouts/activities
+Rendering activities/show
+Completed in 98ms (View: 92, DB: 0) | 200 OK [http://localhost/rails/activities/1]
+
+
+Processing ActivitiesController#edit (for 127.0.0.1 at 2010-06-25 22:40:38) [GET]
+  Parameters: {"id"=>"1"}
+  [4;35;1mActivity Load (0.2ms)[0m   [0mSELECT * FROM "activities" WHERE ("activities"."id" = 1) [0m
+Rendering template within layouts/activities
+Rendering activities/edit
+Completed in 18ms (View: 12, DB: 0) | 200 OK [http://localhost/rails/activities/1/edit]
+
+
+Processing ActivitiesController#index (for 127.0.0.1 at 2010-06-25 22:40:39) [GET]
+  [4;36;1mActivity Load (0.4ms)[0m   [0;1mSELECT * FROM "activities" [0m
+Rendering template within layouts/activities
+Rendering activities/index
+Completed in 13ms (View: 5, DB: 0) | 200 OK [http://localhost/rails/activities]
+
+
+Processing ActivitiesController#index to json (for 127.0.0.1 at 2010-06-25 22:44:01) [GET]
+  [4;35;1mActivity Load (0.4ms)[0m   [0mSELECT * FROM "activities" [0m
+  [4;36;1mQuestion Load (0.2ms)[0m   [0;1mSELECT * FROM "questions" WHERE ("questions".activity_id = 1) [0m
+Completed in 93ms (View: 1, DB: 1) | 200 OK [http://localhost/rails/activities.json]
+
+
+Processing ActivitiesController#index to json (for 127.0.0.1 at 2010-06-25 22:50:17) [GET]
+  [4;35;1mActivity Load (0.7ms)[0m   [0mSELECT * FROM "activities" [0m
+  [4;36;1mQuestion Load (0.2ms)[0m   [0;1mSELECT * FROM "questions" WHERE ("questions".activity_id = 1) [0m
+Completed in 12ms (View: 1, DB: 1) | 200 OK [http://localhost/rails/activities.json]
+
+
+Processing ActivitiesController#index to json (for 127.0.0.1 at 2010-06-25 22:54:55) [GET]
+  [4;35;1mActivity Load (0.4ms)[0m   [0mSELECT * FROM "activities" [0m
+  [4;36;1mQuestion Load (0.2ms)[0m   [0;1mSELECT * FROM "questions" WHERE ("questions".activity_id = 1) [0m
+Completed in 11ms (View: 1, DB: 1) | 200 OK [http://localhost/rails/activities.json]
+
+
+Processing ActivitiesController#index to json (for 127.0.0.1 at 2010-06-25 22:57:57) [GET]
+  [4;35;1mActivity Load (0.4ms)[0m   [0mSELECT * FROM "activities" [0m
+  [4;36;1mQuestion Load (0.1ms)[0m   [0;1mSELECT * FROM "questions" WHERE ("questions".activity_id = 1) [0m
+Completed in 10ms (View: 1, DB: 1) | 200 OK [http://localhost/rails/activities.json]
+
+
+Processing ActivitiesController#index to json (for 127.0.0.1 at 2010-06-25 23:03:36) [GET]
+  [4;35;1mActivity Load (0.4ms)[0m   [0mSELECT * FROM "activities" [0m
+  [4;36;1mQuestion Load (0.1ms)[0m   [0;1mSELECT * FROM "questions" WHERE ("questions".activity_id = 1) [0m
+Completed in 102ms (View: 1, DB: 1) | 200 OK [http://localhost/rails/activities.json]
+
+
+Processing ActivitiesController#index to json (for 127.0.0.1 at 2010-06-25 23:06:57) [GET]
+  [4;35;1mActivity Load (0.4ms)[0m   [0mSELECT * FROM "activities" [0m
+  [4;36;1mQuestion Load (0.1ms)[0m   [0;1mSELECT * FROM "questions" WHERE ("questions".activity_id = 1) [0m
+Completed in 10ms (View: 1, DB: 1) | 200 OK [http://localhost/rails/activities.json]
+
+
+Processing ActivitiesController#index to json (for 127.0.0.1 at 2010-06-25 23:07:48) [GET]
+  [4;35;1mActivity Load (0.7ms)[0m   [0mSELECT * FROM "activities" [0m
+  [4;36;1mQuestion Load (0.2ms)[0m   [0;1mSELECT * FROM "questions" WHERE ("questions".activity_id = 1) [0m
+Completed in 10ms (View: 1, DB: 1) | 200 OK [http://localhost/rails/activities.json]
+
+
+Processing ActivitiesController#index to json (for 127.0.0.1 at 2010-06-25 23:08:35) [GET]
+  [4;35;1mActivity Load (0.4ms)[0m   [0mSELECT * FROM "activities" [0m
+  [4;36;1mQuestion Load (0.2ms)[0m   [0;1mSELECT * FROM "questions" WHERE ("questions".activity_id = 1) [0m
+Completed in 10ms (View: 1, DB: 1) | 200 OK [http://localhost/rails/activities.json]
+
+
+Processing ActivitiesController#index (for 127.0.0.1 at 2010-06-26 04:46:08) [GET]
+  [4;35;1mActivity Load (0.9ms)[0m   [0mSELECT * FROM "activities" [0m
+
+NoMethodError (undefined method `json_for_task' for #<ActivitiesController:0x103468878>):
+  app/controllers/activities_controller.rb:27:in `index'
+  app/controllers/activities_controller.rb:27:in `map'
+  app/controllers/activities_controller.rb:27:in `index'
+  app/controllers/activities_controller.rb:26:in `index'
+
+Rendered rescues/_trace (35.0ms)
+Rendered rescues/_request_and_response (1.1ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing ApplicationController#index (for 127.0.0.1 at 2010-06-26 04:46:31) [GET]
+
+ActionController::RoutingError (No route matches "/rails/" with {:method=>:get}):
+  
+
+Rendering rescues/layout (not_found)
+
+
+Processing ActivitiesController#index to json (for 127.0.0.1 at 2010-06-26 04:47:42) [GET]
+  [4;36;1mActivity Load (0.4ms)[0m   [0;1mSELECT * FROM "activities" [0m
+
+NoMethodError (undefined method `json_for_task' for #<ActivitiesController:0x1036fbfb8>):
+  app/controllers/activities_controller.rb:27:in `index'
+  app/controllers/activities_controller.rb:27:in `map'
+  app/controllers/activities_controller.rb:27:in `index'
+  app/controllers/activities_controller.rb:26:in `index'
+
+Rendered rescues/_trace (35.2ms)
+Rendered rescues/_request_and_response (0.3ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing ActivitiesController#index (for 127.0.0.1 at 2010-06-26 04:48:57) [GET]
+  [4;35;1mActivity Load (0.5ms)[0m   [0mSELECT * FROM "activities" [0m
+Rendering template within layouts/activities
+Rendering activities/index
+Completed in 76ms (View: 6, DB: 0) | 200 OK [http://localhost/rails/activities]
+
+
+Processing ActivitiesController#show (for 127.0.0.1 at 2010-06-26 04:49:00) [GET]
+  Parameters: {"id"=>"1"}
+  [4;36;1mActivity Load (0.2ms)[0m   [0;1mSELECT * FROM "activities" WHERE ("activities"."id" = 1) [0m
+Rendering template within layouts/activities
+Rendering activities/show
+Completed in 8ms (View: 3, DB: 0) | 200 OK [http://localhost/rails/activities/1]
+
+
+Processing ActivitiesController#index (for 127.0.0.1 at 2010-06-26 04:49:05) [GET]
+  [4;35;1mActivity Load (0.4ms)[0m   [0mSELECT * FROM "activities" [0m
+Rendering template within layouts/activities
+Rendering activities/index
+Completed in 14ms (View: 5, DB: 0) | 200 OK [http://localhost/rails/activities]
+
+
+Processing ActivitiesController#index to json (for 127.0.0.1 at 2010-06-26 04:49:13) [GET]
+  [4;36;1mActivity Load (0.4ms)[0m   [0;1mSELECT * FROM "activities" [0m
+
+NameError (undefined local variable or method `activity' for #<ActivitiesController:0x1038df190>):
+  app/controllers/activities_controller.rb:28:in `index'
+  app/controllers/activities_controller.rb:26:in `index'
+
+Rendered rescues/_trace (46.7ms)
+Rendered rescues/_request_and_response (0.3ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing ActivitiesController#show (for 127.0.0.1 at 2010-06-26 04:50:32) [GET]
+  Parameters: {"id"=>"1"}
+  [4;35;1mActivity Load (0.2ms)[0m   [0mSELECT * FROM "activities" WHERE ("activities"."id" = 1) [0m
+Rendering template within layouts/activities
+Rendering activities/show
+Completed in 9ms (View: 3, DB: 0) | 200 OK [http://localhost/rails/activities/1]
+
+
+Processing ActivitiesController#index (for 127.0.0.1 at 2010-06-26 04:50:39) [GET]
+  [4;36;1mActivity Load (0.4ms)[0m   [0;1mSELECT * FROM "activities" [0m
+Rendering template within layouts/activities
+Rendering activities/index
+Completed in 14ms (View: 4, DB: 0) | 200 OK [http://localhost/rails/activities]
+
+
+Processing ActivitiesController#index to json (for 127.0.0.1 at 2010-06-26 04:50:44) [GET]
+  [4;35;1mActivity Load (0.4ms)[0m   [0mSELECT * FROM "activities" [0m
+
+NameError (undefined local variable or method `activity' for #<ActivitiesController:0x1032c98f0>):
+  app/controllers/activities_controller.rb:28:in `index'
+  app/controllers/activities_controller.rb:26:in `index'
+
+Rendered rescues/_trace (115.2ms)
+Rendered rescues/_request_and_response (0.3ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing ActivitiesController#index to json (for 127.0.0.1 at 2010-06-26 04:54:00) [GET]
+  [4;36;1mActivity Load (0.4ms)[0m   [0;1mSELECT * FROM "activities" [0m
+  [4;35;1mQuestion Load (56.2ms)[0m   [0mSELECT * FROM "questions" WHERE ("questions".activity_id = 1) [0m
+Completed in 67ms (View: 2, DB: 57) | 200 OK [http://localhost/rails/activities.json]
+
+
+Processing ActivitiesController#index to json (for 127.0.0.1 at 2010-06-26 04:54:19) [GET]
+  [4;36;1mActivity Load (0.5ms)[0m   [0;1mSELECT * FROM "activities" [0m
+  [4;35;1mQuestion Load (0.2ms)[0m   [0mSELECT * FROM "questions" WHERE ("questions".activity_id = 1) [0m
+Completed in 15ms (View: 1, DB: 1) | 200 OK [http://localhost/rails/activities.json]
+
+
+Processing ActivitiesController#index to json (for 127.0.0.1 at 2010-06-26 04:55:49) [GET]
+  [4;36;1mActivity Load (0.4ms)[0m   [0;1mSELECT * FROM "activities" [0m
+  [4;35;1mQuestion Load (0.2ms)[0m   [0mSELECT * FROM "questions" WHERE ("questions".activity_id = 1) [0m
+Completed in 10ms (View: 2, DB: 1) | 200 OK [http://localhost/rails/activities.json]
+
+
+Processing ActivitiesController#index to json (for 127.0.0.1 at 2010-06-26 04:57:24) [GET]
+  [4;36;1mActivity Load (0.4ms)[0m   [0;1mSELECT * FROM "activities" [0m
+  [4;35;1mQuestion Load (0.2ms)[0m   [0mSELECT * FROM "questions" WHERE ("questions".activity_id = 1) [0m
+Completed in 10ms (View: 1, DB: 1) | 200 OK [http://localhost/rails/activities.json]
+
+
+Processing ActivitiesController#index to json (for 127.0.0.1 at 2010-06-26 05:03:19) [GET]
+  [4;36;1mActivity Load (0.4ms)[0m   [0;1mSELECT * FROM "activities" [0m
+  [4;35;1mQuestion Load (0.2ms)[0m   [0mSELECT * FROM "questions" WHERE ("questions".activity_id = 1) [0m
+Completed in 11ms (View: 1, DB: 1) | 200 OK [http://localhost/rails/activities.json]
+
+
+Processing ActivitiesController#index to json (for 127.0.0.1 at 2010-06-26 05:19:25) [GET]
+  [4;36;1mActivity Load (0.4ms)[0m   [0;1mSELECT * FROM "activities" [0m
+  [4;35;1mQuestion Load (0.2ms)[0m   [0mSELECT * FROM "questions" WHERE ("questions".activity_id = 1) [0m
+Completed in 92ms (View: 2, DB: 1) | 200 OK [http://localhost/rails/activities.json]
+
+
+Processing ActivitiesController#index to json (for 127.0.0.1 at 2010-06-26 05:25:08) [GET]
+  [4;36;1mActivity Load (0.4ms)[0m   [0;1mSELECT * FROM "activities" [0m
+  [4;35;1mQuestion Load (0.2ms)[0m   [0mSELECT * FROM "questions" WHERE ("questions".activity_id = 1) [0m
+Completed in 11ms (View: 1, DB: 1) | 200 OK [http://localhost/rails/activities.json]

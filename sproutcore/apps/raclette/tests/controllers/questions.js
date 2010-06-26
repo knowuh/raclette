@@ -18,7 +18,7 @@ test("Verify questions controller length is updated", function() {
   var firstActivity;
   
   SC.run(function(){
-    firstActivity = Raclette.store.find(Raclette.Activity,1);
+    firstActivity = Raclette.store.find(Raclette.Activity,'1');
     Raclette.activityController.set('content',firstActivity);
   });
   

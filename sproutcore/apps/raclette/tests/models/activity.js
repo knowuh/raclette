@@ -18,7 +18,7 @@ test("test description", function() {
 // NOTE: Assumes contents of fixtures.
 test("test two questions in first model", function() {
   var expectedSize = 2;
-  var activity   = Raclette.store.find('Raclette.Activity',1);
+  var activity   = Raclette.store.find('Raclette.Activity','1');
   var numQuestions = activity.get('questions').get('length');
   equals(numQuestions, expectedSize, "There should be 2 questions");
 });

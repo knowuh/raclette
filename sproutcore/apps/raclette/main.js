@@ -24,10 +24,14 @@ Raclette.main = function main() {
   
 
   var activities = Raclette.store.find(Raclette.ACTIVITIES_QUERY);
-  debugger;
-  var firstActivity = activities.objectAt(0);
+  console.log("activities:");
+  console.log(activities);
+  var firstActivity = activities.popObject();//.objectAt(0);
+  console.log("firstActivity:");
+  console.log(firstActivity);
   
   //var firstActivity = Raclette.store.find(Raclette.Activity,1);
+	console.log("Calling Raclette.activityController.set('content',firstActivity);");
   Raclette.activityController.set('content',firstActivity);
   
   // TODO: Set the content property on your primary controller
