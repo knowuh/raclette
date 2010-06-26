@@ -7,6 +7,11 @@ class ActivitiesController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @activities }
+      format.json do
+        render :json => {:content => @activities.to_json(:methods => :guid, :only => [:guid, :title], :include => { 
+        :questions => { :methods => :guid, :only => :guid } }) }
+      end
+        
     end
   end
 

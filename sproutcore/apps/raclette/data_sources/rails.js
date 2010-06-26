@@ -6,10 +6,18 @@
 
 /** @class
 
-  (Document Your Data Source Here)
+  cribbed from
+  http://wiki.sproutcore.com/Todos+07-Hooking+Up+to+the+Backend
 
   @extends SC.DataSource
 */
+
+sc_require('models/activity');
+Raclette.ACTIVITIES_QUERY = SC.Query.local(Raclette.Activity, {
+  orderBy: 'title'
+});
+
+
 Raclette.RailsDataSource = SC.DataSource.extend(
 /** @scope Raclette.RailsDataSource.prototype */ {
 
@@ -18,13 +26,25 @@ Raclette.RailsDataSource = SC.DataSource.extend(
   // 
 
   fetch: function(store, query) {
-
-    // TODO: Add handlers to fetch data for specific queries.  
-    // call store.dataSourceDidFetchQuery(query) when done.
-
+    debugger;
+    if (query === Raclette.ACTIVITIES_QUERY) {
+       SC.Request.getUrl('/rails/activities.json').header({'Accept': 'application/json'}).json()
+         .notify(this, 'didFetchTasks', store, query)
+         .send();
+       return YES;
+     }
     return NO ; // return YES if you handled the query
   },
 
+
+  didFetchTasks: function(response, store, query) {
+    debugger;
+    if (SC.ok(response)) {
+      store.loadRecords(Raclette.Activity, response.get('body').content.getEach('activity'));
+      store.dataSourceDidFetchQuery(query);
+    } else store.dataSourceDidErrorQuery(query, response);
+  },
+  
   // ..........................................................
   // RECORD SUPPORT
   // 
