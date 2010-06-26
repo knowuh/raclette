@@ -30,12 +30,23 @@ Raclette.main = function main() {
   console.log('activities: ', activities);
   console.log('activities.length: ', activities.get('length'));
 
-  var firstActivity = activities.get('length') ? activities.objectAt(0) : null;   // popObject() returns LAST Activity
+  // The following will not work as desired because 'activities' is not (and could not possibly be) updated with the
+  // response from the server until after the XHR callback is allowed to execute. (Unless we use synchronous XHR...)
+  // Therefore 'activities' will always be empty in the following code, and no association will be formed between
+  // the 'content' property of activityController and the activities SC.RecordArray
+  
+  // var firstActivity = activities.get('length') ? activities.objectAt(0) : null;   // popObject() returns LAST Activity
+  // console.log('firstActivity:', firstActivity);
+  // console.group("Raclette.activityController.set('content',firstActivity)");
+  // Raclette.activityController.set('content',firstActivity);
+  // console.groupEnd();     // controller.set('content', ...)
 
-  console.log('firstActivity:', firstActivity);
-  console.group("Raclette.activityController.set('content',firstActivity)");
-  Raclette.activityController.set('content',firstActivity);
-  console.groupEnd();     // controller.set('content', ...)
+
+  // the following works as desired because the activities RecordArray is updated by the data store when the 
+  // data source calls Raclette.store.loadRecords() in the XMLHttpRequest callback. The activitiesController observes
+  // this property, and updates its 'selection' property appropriately; and the activityController observes that...
+  
+  Raclette.activitiesController.set('content', activities);
 
   console.groupEnd();     // main()
 } ;
