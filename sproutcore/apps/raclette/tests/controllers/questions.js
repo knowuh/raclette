@@ -9,13 +9,14 @@ module("Raclette.question", {
   setup: function () {
     console.group('module setup');
     setupFixtures();
-    this.firstActivity = Raclette.store.find(Raclette.Activity, 1);
-
+  
     // for unclear reasons, SC.run() doesn't seem to work here or in the test()s that follow. But SC.RunLoop... works
     SC.RunLoop.begin();
-    Raclette.activityController.set('content', this.firstActivity);
+    Raclette.activitiesController.set('content', Raclette.store.find(Raclette.Activity));
     SC.RunLoop.end();
 
+    this.selectedActivity = Raclette.activitiesController.get('selection').toArray().objectAt(0);    
+    
     // activityController.questions => questionsController.content binding should have synchronized in above runloop.
     // We need a second runloop for questionsController.arrangedObjects => questionsView.content binding to sync.
 
@@ -39,6 +40,12 @@ module("Raclette.question", {
 
 // assumes 2 questions in the fixtures
 test("Verify questions controller length is updated", function() {
+
+  // SC.RunLoop.begin();
+  // console.log('Before runloop, questionsController.content', Raclette.questionsController.get('content'));
+  // SC.RunLoop.end();
+  // console.log('After runloop, questionsController.content', Raclette.questionsController.get('content'));
+
   // verify initial conditions:
   equals(Raclette.questionsController.get("length"), 2,
     '(precondition:) questionsController.length should be 2 before new question record is created');
@@ -66,7 +73,7 @@ test("Verify questions controller length is updated", function() {
     runLoopHasFinished = YES;         // this code will be executed before anything else when the next runloop starts.
   });
 
-  this.newQuestion.set("activity", this.firstActivity);
+  this.newQuestion.set("activity", this.selectedActivity);
 
   // Logic note: if the following assertions were in a different runloop than the above 'set', the invokeLast code would
   // set runLoopHasFinished to YES during the following SC.RunLoop.begin() method call. Therefore, the contrapositive:
@@ -99,15 +106,15 @@ test("Verify record state before and after commit (using addQuestion)", function
   var guid = Raclette.Question.nextGuid;
   equals(guid, 3, '(pre-test:) expected nextGuid to be 3');
 
-  equals(Raclette.questionsController.get("length"), 2, "expected 2 questions before call to addQuestion");
+  equals(Raclette.questionsController.get("length"), 2, "expected 2 questions before call to addQuestion()");
 
   Raclette.questionsController.addQuestion();
 
-  equals(Raclette.questionsController.get("length"), 3, "expected 3 questions after call to addQuestion");
+  equals(Raclette.questionsController.get("length"), 3, "expected 3 questions after call to addQuestion()");
   equals(Raclette.store.find(Raclette.Question, guid).get('status'), SC.Record.READY_NEW,
-    'expected state of question 3 after addQuestion to be READY_NEW');
-  equals(this.firstActivity.get('status'), SC.Record.READY_DIRTY,
-    'expected state of activity 1 after addQuestion to be READY_DIRTY');
+    'expected state of question 3 after addQuestion() to be READY_NEW');
+  equals(this.selectedActivity.get('status'), SC.Record.READY_DIRTY,
+    'expected state of current activity after addQuestion() to be READY_DIRTY');
 
 
   SC.RunLoop.begin();
@@ -115,20 +122,20 @@ test("Verify record state before and after commit (using addQuestion)", function
   Raclette.store.commitRecords();
 
   equals(Raclette.store.find(Raclette.Question, guid).get('status'), SC.Record.READY_NEW,
-    'expected state of question 3 after commitRecords but before runloop ends to be READY_NEW');
-  equals(this.firstActivity.get('status'), SC.Record.READY_DIRTY,
-    'expected state of activity 1 after commitRecords but before runloop endds to be READY_DIRTY');
+    'expected state of question 3 after commitRecords() but before runloop ends to be READY_NEW');
+  equals(this.selectedActivity.get('status'), SC.Record.READY_DIRTY,
+    'expected state of current activity after commitRecords() but before runloop ends to be READY_DIRTY');
 
   SC.RunLoop.end();
 
   equals(Raclette.store.find(Raclette.Question, guid).get('status'), SC.Record.READY_CLEAN,
-    'expected state of question 3 after commitRecords and end of runloop to be READY_CLEAN');
-  equals(this.firstActivity.get('status'), SC.Record.READY_CLEAN,
-    'expected state of activity 1 after commitRecords and end of runloop to be READY_CLEAN');
+    'expected state of question 3 after commitRecords() and end of runloop to be READY_CLEAN');
+  equals(this.selectedActivity.get('status'), SC.Record.READY_CLEAN,
+    'expected state of current activity after commitRecords() and end of runloop to be READY_CLEAN');
 });
 
 
-test('Verify record state before and after commit (adding newQuestion ourselves )', function () {
+test('Verify record state before and after commit (adding new question ourselves)', function () {
 
   var runLoopHasFinished = NO;
   Raclette.invokeLast(function () {
@@ -142,14 +149,14 @@ test('Verify record state before and after commit (adding newQuestion ourselves 
   
   equals(this.newQuestion.get('status'), SC.Record.READY_NEW, 
     'the state of the new question record should be READY_NEW after createRecord() and before commitRecords()');
-  equals(this.firstActivity.get('status'), SC.Record.READY_CLEAN, 
-   'the state of the first activity should be READY_CLEAN before the new question is associated with it');  
+  equals(this.selectedActivity.get('status'), SC.Record.READY_CLEAN, 
+   'the state of the current activity should be READY_CLEAN before the new question is associated with it');  
 
-  this.newQuestion.set("activity", this.firstActivity);  
+  this.newQuestion.set("activity", this.selectedActivity);  
   SC.RunLoop.begin();   // again, if above and below code were in different runloops, the invokeLast() would execute here.
 
-  equals(this.firstActivity.get('status'), SC.Record.READY_DIRTY,
-    'the state of the first activity should be be READY_DIRTY immediately after the new question is assigned to it');
+  equals(this.selectedActivity.get('status'), SC.Record.READY_DIRTY,
+    'the state of the current activity should be be READY_DIRTY immediately after the new question is assigned to it');
   equals(runLoopHasFinished, NO, 
     "(validity condition:) runLoopHasFinished should be NO, showing the above test took place in the same runloop " +
     "as the assignment of the 'activity' property of the new question");
@@ -159,8 +166,8 @@ test('Verify record state before and after commit (adding newQuestion ourselves 
 
   equals(this.newQuestion.get('status'), SC.Record.READY_CLEAN,
     'the state of the new question record should be READY_CLEAN after commitRecords()');
-  equals(this.firstActivity.get('status'), SC.Record.READY_CLEAN,
-    'the state of the first activity should be READY_CLEAN after commitRecords()');
+  equals(this.selectedActivity.get('status'), SC.Record.READY_CLEAN,
+    'the state of the current activity should be READY_CLEAN after commitRecords()');
   equals(runLoopHasFinished, YES,
     '(validity condition:) runLoopHasFinished should be YES, indicating that it is reset when runloop starts.');
 });
