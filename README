@@ -168,7 +168,7 @@ Step 5.
   rails (master)$ curl localhost:3000/rails/questions/1.json
   {"question":{"activity_id":1,"prompt":"Run as fast as you can and jump as high as you can. Repeat.","guid":1}}
 
-After adding two activitie each of which has two questions the activities json looks like this:
+After adding two activities each of which has two questions the activities json looks like this:
 
   rails (master)$ curl localhost:3001/rails/activities.json
   
