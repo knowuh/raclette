@@ -2,7 +2,7 @@
 // Project:   Raclette.question Unit Test
 // Copyright: ©2010 My Company, Inc.
 // ==========================================================================
-/*globals Raclette module test ok equals same stop start setupFixtures */
+/*globals Raclette module test ok equals same stop start setupFixtures statusEquals */
 
 module("Raclette.questionsController", {
 
@@ -114,7 +114,7 @@ test("Verify record state before and after commit (using addQuestion)", function
   
   Raclette.store.commitRecords();
 
-  equals(newQuestion.get('status'), SC.Record.READY_NEW,
+  statusEquals(newQuestion, SC.Record.READY_NEW,
     'the state of the new question after commitRecords() but before runloop ends should be READY_NEW');
   equals(this.selectedActivity.get('status'), SC.Record.READY_DIRTY,
     'the state of current activity after commitRecords() but before runloop ends should be READY_DIRTY');
