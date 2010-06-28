@@ -162,8 +162,8 @@ Step 5.
 # hit http://localhost:3000/activities and http://localhost:3000/questions in a browser
 # and create an Activity and a Question. Open a new console. Then the following should work...
 
-  rails (master)$ curl localhost:3000/activities/1.json
+  rails (master)$ curl localhost:3000/rails/activities/1.json
   {"activity":{"title":"Running and jumping","guid":1,"questions":[{"guid":1}]}}
 
-  rails (master)$ curl localhost:3000/questions/1.json
+  rails (master)$ curl localhost:3000/rails/questions/1.json
   {"question":{"activity_id":1,"prompt":"Run as fast as you can and jump as high as you can. Repeat.","guid":1}}
