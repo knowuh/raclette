@@ -175,40 +175,50 @@ After adding two activities each of which has two questions the activities json 
 Which when expanded to look nice looks like this:
 
   {
-      "content":"
+      "content":
       [
           {
-              \"activity\":
-              {
-                  \"title\":\"Rounds of Cheese\",
-                  \"guid\":1,
-                  \"questions\":
-                  [
-                      {
-                          \"guid\":1
-                      },
-                      {
-                          \"guid\":2
-                      }
-                  ]
-              }
+              "questions":
+              [
+                  {
+                      "updated_at":"2010-06-25T20:47:47Z",
+                      "prompt":"Why is the sky blue?",
+                      "activity_id":1,
+                      "id":1,
+                      "created_at":"2010-06-25T20:47:47Z"
+                  },
+                  {
+                      "updated_at":"2010-06-25T20:48:06Z",
+                      "prompt":"Why is the ocean blue?",
+                      "activity_id":1,
+                      "id":2,
+                      "created_at":"2010-06-25T20:48:06Z"
+                  }
+              ],
+              "title":"Trailers of Cheese",
+              "guid":"/rails/activities/1"
           },
           {
-              \"activity\":
-              {
-                  \"title\":\"Squares of Cheese\",
-                  \"guid\":2,
-                  \"questions\":
-                  [
-                      {
-                          \"guid\":3
-                      },
-                      {
-                          \"guid\":4
-                      }
-                  ]
-              }
+              "questions":
+              [
+                  {
+                      "updated_at":"2010-06-25T20:48:24Z",
+                      "prompt":"What is the color of money?",
+                      "activity_id":2,
+                      "id":3,
+                      "created_at":"2010-06-25T20:48:24Z"
+                  },
+                  {
+                      "updated_at":"2010-06-25T20:49:12Z",
+                      "prompt":"What is the meaning of life?",
+                      "activity_id":2,
+                      "id":4,
+                      "created_at":"2010-06-25T20:49:12Z"
+                  }
+              ],
+              "title":"Squares of Cheese",
+              "guid":"/rails/activities/2"
           }
       ]
-      "
   }
+  
