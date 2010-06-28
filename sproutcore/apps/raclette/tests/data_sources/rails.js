@@ -127,22 +127,29 @@ test("does retrieveRecord work for questions", function() {
 test("does the first activity returned have valid questions with prompts", function() {
   var activities = Raclette.store.find(Raclette.ACTIVITIES_QUERY);
   
-  stop(2000);       // pause to wait for async call
+  stop();       // pause to wait for async call
   
   // when status of activities changes, we get the question
   // and check that it has a valid prompt
   var checkActivityHasQuestions = function(){
       // remove the observer incase the passed func causes it to fire again
+      start();
       activities.removeObserver('status', checkActivityHasQuestions);
-      var firstActivity = activities.objectAt(0);
-      var questions = firstActivity.get('questions');
-      var firstQuestion = questions.objectAt(0);
+      statusEquals(activities, SC.Record.READY_CLEAN, "activities's status is READY_CLEAN");
       
+      var firstActivity = activities.objectAt(0);
+      ok(firstActivity !== null, "We have a first activity");
+      
+      var questions = firstActivity.get('questions');
+      ok(questions !== null, "We have questions");
+      
+      var firstQuestion = questions.objectAt(0);
+      ok(firstQuestion !== null, "We have a firstQuestion");
+      
+      stop();
       var checkPrompt = function() {
         firstQuestion.removeObserver('status', checkPrompt);
-
         statusEquals(firstQuestion, SC.Record.READY_CLEAN, "question's status is READY_CLEAN");
-        
         ok(firstQuestion.get('prompt'), "first question has a valid prompt");
         
         start();
