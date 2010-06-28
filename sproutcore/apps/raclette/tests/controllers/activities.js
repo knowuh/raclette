@@ -50,18 +50,23 @@ test("verify that activitiesController sets its selection automatically when its
     'should increase by one when a new activity record is created');
   equals(selectedActivity, secondActivity, 'activitiesController selection should not be reset (should still be ' +
     'the second object) after a new Activity is added to activitiesController');
-  
+
   SC.RunLoop.begin();
-  var query = SC.Query.local(Raclette.Activity, "guid <= 2");
+  var query = SC.Query.local(Raclette.Activity, {
+    conditions: "guid = 1 OR guid = 3",
+    orderBy: 'guid ASC'
+  });
   Raclette.activitiesController.set('content', Raclette.store.find(query));
   SC.RunLoop.end();
   
-  ok(Raclette.activitiesController.indexOf(selectedActivity) > 0, '(validity condition:) previously selected activity ' +
-    'should still be present in activitiesController array after content property is reassigned, and should not ' +
-    'be the first activity in the array');
-  selectedActivity = Raclette.activitiesController.get('selection').toArray().objectAt(0);    
+  equals(Raclette.activitiesController.get('length'), 2, 'activitiesController length should be 2 after content is ' +
+    'reassigned.');
+  ok(Raclette.activitiesController.indexOf(selectedActivity) === -1, '(validity condition:) previously selected activity ' +
+    'should not be present in activitiesController array after content property is reassigned');
+  selectedActivity = Raclette.activitiesController.get('selection').toArray().objectAt(0);
+
   equals(selectedActivity, firstActivity, 'activitiesController selection should be reset to firstActivity when content ' +
-    'property is reassigned.');
+    'property is reassigned in a way that invalidates previous selection');
 });
 
 
