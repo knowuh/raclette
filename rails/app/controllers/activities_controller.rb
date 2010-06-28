@@ -124,7 +124,7 @@ class ActivitiesController < ApplicationController
   def json_for_activity(activity)
     { :guid => activity_path(activity),
       :title => activity.title,
-      :questions => activity.questions
+      :questions => activity.questions.map { |q| question_path(q) }
     }
   end
 
