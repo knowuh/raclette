@@ -7,15 +7,15 @@
 module("Raclette.question", {
 
   setup: function () {
-    console.group('module setup');
+    console.group('module');
     setupFixtures();
   
     // for unclear reasons, SC.run() doesn't seem to work here or in the test()s that follow. But SC.RunLoop... works
     SC.RunLoop.begin();
     Raclette.activitiesController.set('content', Raclette.store.find(Raclette.Activity));
     SC.RunLoop.end();
-
-    this.selectedActivity = Raclette.activitiesController.get('selection').toArray().objectAt(0);    
+    
+    this.selectedActivity = Raclette.activitiesController.get('selection').toArray().objectAt(0);   
     
     // activityController.questions => questionsController.content binding should have synchronized in above runloop.
     // We need a second runloop for questionsController.arrangedObjects => questionsView.content binding to sync.
@@ -40,12 +40,8 @@ module("Raclette.question", {
 
 // assumes 2 questions in the fixtures
 test("Verify questions controller length is updated", function() {
-
-  // SC.RunLoop.begin();
-  // console.log('Before runloop, questionsController.content', Raclette.questionsController.get('content'));
-  // SC.RunLoop.end();
-  // console.log('After runloop, questionsController.content', Raclette.questionsController.get('content'));
-
+  console.group('test');
+  
   // verify initial conditions:
   equals(Raclette.questionsController.get("length"), 2,
     '(precondition:) questionsController.length should be 2 before new question record is created');
@@ -65,7 +61,6 @@ test("Verify questions controller length is updated", function() {
     "questionsController.length should still be 2 before 'activity' property is set on new question record");
   equals(Raclette.activityController.getPath('questions.length'), 2,
     "activityController.questions.length should still be 2 before 'activity' property is set on new question record");
-
 
   // runLoopHasFinished is a 'tripwire' to prove that the following occurs in the same runloop
   var runLoopHasFinished = NO;
@@ -96,12 +91,13 @@ test("Verify questions controller length is updated", function() {
     '(validity condition:) runLoopHasFinished should be YES after runloop finishes, confirming that it really does ' +
     'get set when runloop ends');
   SC.RunLoop.end();
+  
+  console.groupEnd();
 });
 
 
 test("Verify record state before and after commit (using addQuestion)", function () {
-
-
+  console.group('test');
   // check where the record is going to be added
   var guid = Raclette.Question.nextGuid;
   equals(guid, 3, '(pre-test:) expected nextGuid to be 3');
@@ -132,11 +128,12 @@ test("Verify record state before and after commit (using addQuestion)", function
     'expected state of question 3 after commitRecords() and end of runloop to be READY_CLEAN');
   equals(this.selectedActivity.get('status'), SC.Record.READY_CLEAN,
     'expected state of current activity after commitRecords() and end of runloop to be READY_CLEAN');
+  console.groupEnd();
 });
 
 
 test('Verify record state before and after commit (adding new question ourselves)', function () {
-
+  console.group('test');
   var runLoopHasFinished = NO;
   Raclette.invokeLast(function () {
     runLoopHasFinished = YES;         // this code will be executed before anything else when the next runloop starts.
@@ -170,4 +167,5 @@ test('Verify record state before and after commit (adding new question ourselves
     'the state of the current activity should be READY_CLEAN after commitRecords()');
   equals(runLoopHasFinished, YES,
     '(validity condition:) runLoopHasFinished should be YES, indicating that it is reset when runloop starts.');
+  console.groupEnd();
 });

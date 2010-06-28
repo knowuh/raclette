@@ -18,10 +18,13 @@ Raclette.activityController = SC.ObjectController.create(
   // not needed for functionality, but log success for everyone's edification
   questionsDidChange: function () {
     var questions = this.get('questions');
-    if (questions && questions.get('length') > 0) {
-      console.info('LENGTH OF activityController.questions > 0!');
-      console.log('activityController.questions (converted to js array): ', questions.toArray()); 
+    var len;
+    console.group('Raclette.activityController.questionsDidChange');
+    if (questions && (len = questions.get('length')) > 0) {
+      console.info('SUCCESS: activityController.questions.length = %d', len);
+      console.log('activityController.questions (converted to js array): ', questions.toArray());
     }
+    console.groupEnd();
   }.observes('*questions.[]')
 
 }) ;
