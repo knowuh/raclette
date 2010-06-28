@@ -73,13 +73,34 @@ Raclette.RailsDataSource = SC.DataSource.extend(
   // RECORD SUPPORT
   //
   retrieveRecord: function(store, storeKey) {
+    console.log('Raclette.RailsDataSource.retrieveRecord');
+    // guid will be rails url e.g. /rails/questions/1.json
+    var guid = store.idFor(storeKey);
     
-    var guid = store.idFor(storeKey)
-    console.log('retrieveRecord: guid: ' + guid);
+    var request = SC.Request.getUrl(guid).header({
+      'Accept': 'application/json'
+    }).json().notify(this, 'didRetrieveRecord', store, storeKey).send();
+    
+    return YES; // return YES if you handled the storeKey
+  },
+  
+  didRetrieveRecord: function(response, store, storeKey) {
+    console.group('Raclette.RailsDataSource.didRetrieveRecord()');
 
-    // TODO: Add handlers to retrieve an individual record's contents
-    // call store.dataSourceDidComplete(storeKey) when done.
-    return NO; // return YES if you handled the storeKey
+    console.log('response.status = %d', response.get('status'));
+    console.log("response: ", response);
+
+    if (SC.ok(response)) {
+      console.log('SC.ok(response) is YES; processing content');
+      var content = response.get('body').content;
+      console.log('response.body.content: ', content);
+
+      console.group('store.dataSourceDidComplete(storeKey, content)');
+      store.dataSourceDidComplete(storeKey, content);
+      console.groupEnd();
+    } else store.dataSourceDidError(storeKey);
+
+    console.groupEnd();
   },
 
   createRecord: function(store, storeKey) {
