@@ -73,6 +73,9 @@ Raclette.RailsDataSource = SC.DataSource.extend(
   // RECORD SUPPORT
   //
   retrieveRecord: function(store, storeKey) {
+    
+    var guid = store.idFor(storeKey)
+    console.log('retrieveRecord: guid: ' + guid);
 
     // TODO: Add handlers to retrieve an individual record's contents
     // call store.dataSourceDidComplete(storeKey) when done.
