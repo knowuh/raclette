@@ -8,7 +8,7 @@
 
 // { setup: store: SC.Store.create().from('Raclette.RailsDataSource') }
 
-module("Raclette.RailsDataSource", { 
+module("Raclette.RailsDataSource_fetch_and_retrieve", { 
   setup: function() {
     this.store = SC.Store.create().from('Raclette.RailsDataSource');
     Raclette.set('store', this.store); 
