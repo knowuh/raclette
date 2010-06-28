@@ -18,6 +18,8 @@ var setupFixtures = function () {
         activity: 1
     }];
 
+    Raclette.Question.nextGuid = 3;
+
     // SC.Record.fixtures is a singleton FixturesDataSource. Even if we create a new store from SC.Record.fixtures
     // we see stale fixture data in the store from previous tests which modified the data cache in SC.Record.fixtures.
     // We can avoid that problem by creating a wholly new data source begind the store, which must read the FIXTURE 
