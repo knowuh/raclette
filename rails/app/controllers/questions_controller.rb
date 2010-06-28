@@ -18,7 +18,9 @@ class QuestionsController < ApplicationController
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @question }
-      format.json { render :json => @question.to_json(:methods => :guid, :only => [:guid, :prompt, :activity_id]) }
+      # format.json { render :json => @question.to_json(:methods => :guid, :only => [:guid, :prompt, :activity_id]) }
+      question = json_for_question(@question)
+      format.json { render :json => { :content => question } }
     end
   end
 
@@ -81,4 +83,17 @@ class QuestionsController < ApplicationController
       format.xml  { head :ok }
     end
   end
+  
+  #Adjust JSON communication
+  #Sproutcore uses the field guid for objects ids, but Rails calls this field id.
+  #You have two options on how to convert between these naming conventions:
+  #Option 1: Adjust Rails JSON output
+  #To customize the JSON output of an object, write a json_for_activity protected method in TasksController (app/controllers/activities_controller.rb): 
+  protected
+  def json_for_question(question)
+    { :guid => question_path(question, :format => :json ),
+      :prompt => question.prompt
+    }
+  end
+  
 end
