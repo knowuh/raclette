@@ -1,11 +1,19 @@
 /*globals Raclette */      // make jslint happy
 var setupFixtures = function () {
   
-    Raclette.Activity.FIXTURES = [{
-        guid: 1,
+    Raclette.Activity.FIXTURES = [
+      { guid: 1,
         title: 'Wheels of Cheese',
         questions: [1,2]
-    }];
+      },
+      
+      { guid: 2,
+        title: 'Better than Fondue?',
+        questions: []
+      }
+    ];
+    
+    Raclette.Activity.nextGuid = 3;
     
     Raclette.Question.FIXTURES = [{
         guid: 1,

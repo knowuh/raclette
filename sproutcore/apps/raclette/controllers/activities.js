@@ -13,14 +13,18 @@
 Raclette.activitiesController = SC.ArrayController.create(
 /** @scope Raclette.activitiesController.prototype */ {
 
-  allowsEmptySelection: NO,
   allowsMultipleSelection: NO,
 
   // forces the activityController to refresh its 'questions' ManyArray when the content object changes, even if
   // the selection left over from the old content object is valid with the new content object.
   _contentDidChange: function () {
     console.group('Raclette.activitiesController._contentDidChange');
-    this.selectObject(this.objectAt(0));
+    if (this.get('length') > 0) {
+      this.selectObject(this.objectAt(0));    // what happens if this.length == 0; is stale selection retained?
+    }
+    else {
+      this.set('selection', SC.SelectionSet.create());
+    }
     console.groupEnd();
   }.observes('content')
 
