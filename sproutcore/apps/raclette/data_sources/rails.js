@@ -104,10 +104,15 @@ Raclette.RailsDataSource = SC.DataSource.extend(
   },
 
   createRecord: function(store, storeKey) {
+    console.group('Raclette.RailsDataSource.createRecord()');
+    SC.Request.postUrl('/rails/activities').header({
+                    'Accept': 'application/json'
+                }).json()
 
-    // TODO: Add handlers to submit new records to the data source.
-    // call store.dataSourceDidComplete(storeKey) when done.
-    return NO; // return YES if you handled the storeKey
+          .notify(this, this.didCreateTask, store, storeKey)
+          .send(store.readDataHash(storeKey));
+    console.groupEnd();
+    return YES;
   },
 
   updateRecord: function(store, storeKey) {
