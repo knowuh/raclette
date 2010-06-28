@@ -122,9 +122,9 @@ class ActivitiesController < ApplicationController
   #To customize the JSON output of an object, write a json_for_activity protected method in TasksController (app/controllers/activities_controller.rb): 
   protected
   def json_for_activity(activity)
-    { :guid => activity_path(activity),
+    { :guid => activity_path(activity, :format => :json ),
       :title => activity.title,
-      :questions => activity.questions.map { |q| question_path(q) }
+      :questions => activity.questions.map { |q| question_path(q, :format => :json ) }
     }
   end
 
