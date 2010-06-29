@@ -46,7 +46,7 @@ statusNotify = function(obj, status, func){
 // expects an array of {target: <some object to check the status on>,
 //    callback: <some function to call when the status changes>}
 statusQueue = function(statusArray){
-  stop(2000 + statusArray.get('length') * 500);
+  stop(5000 + statusArray.get('length') * 1000);
   
   var iterate = function(statusArray){
     var item = statusArray.shiftObject();
