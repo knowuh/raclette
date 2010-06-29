@@ -104,16 +104,32 @@ Raclette.RailsDataSource = SC.DataSource.extend(
   },
 
   createRecord: function(store, storeKey) {
+    var recordType = store.recordTypeFor(storeKey);
+    var modelName = recordType.modelName;
+
     console.group('Raclette.RailsDataSource.createRecord()');
-    SC.Request.postUrl('/rails/activities').header({
+    SC.Request.postUrl('/rails/' + recordType.modelsName).header({
                     'Accept': 'application/json'
                 }).json()
 
-          .notify(this, this.didCreateTask, store, storeKey)
-          .send(store.readDataHash(storeKey));
+          .notify(this, this.didCreateRecord, store, storeKey)
+          .send({ modelName: store.readDataHash(storeKey)});
     console.groupEnd();
     return YES;
   },
+  
+  didCreateRecord: function(response, store, storeKey) {
+    if (SC.ok(response)) {
+      // Adapted from parseUri 1.2.2
+      // (c) Steven Levithan <stevenlevithan.com>
+      // MIT License
+      var parser = /^(?:(?![^:@]+:[^:@\/]*@)([^:\/?#.]+):)?(?:\/\/)?((?:(([^:@]*)(?::([^:@]*))?)?@)?([^:\/?#]*)(?::(\d*))?)(((\/(?:[^?#](?![^?#\/]*\.[^?#\/.]+(?:[?#]|$)))*\/?)?([^?#\/]*))(?:\?([^#]*))?(?:#(.*))?)/;
+      var url = parser.exec(response.header('Location'))[8];
+      store.dataSourceDidComplete(storeKey, null, url); // update url
+
+    } else store.dataSourceDidError(storeKey, response);
+  },
+  
 
   updateRecord: function(store, storeKey) {
 

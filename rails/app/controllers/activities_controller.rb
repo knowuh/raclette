@@ -74,14 +74,13 @@ class ActivitiesController < ApplicationController
   # POST /activities
   # POST /activities.xml
   def create
-    debugger
     @activity = Activity.new(params[:activity])
     
     respond_to do |format|
       if @activity.save
         format.html { redirect_to(@activity, :notice => 'Activity was successfully created.') }
         format.xml  { render :xml => @activity, :status => :created, :location => @activity }
-        # format.json { render :json => }
+        format.json { render :json => @activity, :status => :created, :location => @activity }
       else
         format.html { render :action => "new" }
         format.xml  { render :xml => @activity.errors, :status => :unprocessable_entity }

@@ -20,3 +20,7 @@ Raclette.Activity = SC.Record.extend(
   // TODO: Add your own code here.
 
 }) ;
+
+// these class variables, and help the datastores create 'conventional' urls.
+Raclette.Activity.modelName = "activity";
+Raclette.Activity.modelsName = "activities";
