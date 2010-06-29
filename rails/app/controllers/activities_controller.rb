@@ -81,7 +81,7 @@ class ActivitiesController < ApplicationController
       if @activity.save
         format.html { redirect_to(@activity, :notice => 'Activity was successfully created.') }
         format.xml  { render :xml => @activity, :status => :created, :location => @activity }
-        # format.json { render :json => }
+        format.json { render :json => @activity, :status => :created, :location => @activity }
       else
         format.html { render :action => "new" }
         format.xml  { render :xml => @activity.errors, :status => :unprocessable_entity }
