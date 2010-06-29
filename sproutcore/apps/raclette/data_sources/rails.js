@@ -125,7 +125,7 @@ Raclette.RailsDataSource = SC.DataSource.extend(
       // MIT License
       var parser = /^(?:(?![^:@]+:[^:@\/]*@)([^:\/?#.]+):)?(?:\/\/)?((?:(([^:@]*)(?::([^:@]*))?)?@)?([^:\/?#]*)(?::(\d*))?)(((\/(?:[^?#](?![^?#\/]*\.[^?#\/.]+(?:[?#]|$)))*\/?)?([^?#\/]*))(?:\?([^#]*))?(?:#(.*))?)/;
       var url = parser.exec(response.header('Location'))[8];
-      store.dataSourceDidComplete(storeKey, null, url); // update url
+      store.dataSourceDidComplete(storeKey, null, url+'.json'); // update url
 
     } else store.dataSourceDidError(storeKey, response);
   },
