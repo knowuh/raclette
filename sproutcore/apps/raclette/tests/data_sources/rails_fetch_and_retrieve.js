@@ -4,7 +4,7 @@
 // http://localhost:4020/raclette/en/current/tests/models/activity.html
 //
 // ==========================================================================
-/*globals Raclette module test ok equals same stop start statusEquals statusNotify statusQueue*/
+/*globals Raclette module test ok equals same stop start statusEquals statusNotify statusQueue testAfterPropertyChange */
 
 // { setup: store: SC.Store.create().from('Raclette.RailsDataSource') }
 
@@ -103,29 +103,26 @@ test("does retrieveRecord work for questions", function() {
 });
 
 
-test("does the first activity returned have valid questions with prompts", function() {
+test("does the first activity returned have valid questions with prompts", function () {
+
   var activities = Raclette.store.find(Raclette.ACTIVITIES_QUERY);
-  var firstQuestion = null;
-  statusQueue([
-    { target: activities,
-      callback: function(queue){
-        statusEquals(activities, SC.Record.READY_CLEAN, "activities's status is READY_CLEAN");
+  var firstQuestion;
+  
+  testAfterPropertyChange(activities, 'status', function () {        
+    statusEquals(activities, SC.Record.READY_CLEAN, "activities's status is READY_CLEAN");
 
-        var firstActivity = activities.objectAt(0);
-        ok(firstActivity !== null, "We have a first activity");
+    var firstActivity = activities.objectAt(0);
+    ok(firstActivity !== null, "We have a first activity");
 
-        var questions = firstActivity.get('questions');
-        ok(questions !== null, "We have questions");
+    var questions = firstActivity.get('questions');
+    ok(questions.get('length') > 0, "We have questions");
 
-        queue[0].target = firstQuestion = questions.objectAt(0);
-        ok(firstQuestion !== null, "We have a firstQuestion");
-      }
-    },
-    {
-      callback: function(){
-        statusEquals(firstQuestion, SC.Record.READY_CLEAN, "question's status is READY_CLEAN");
-        ok(firstQuestion.get('prompt'), "first question has a valid prompt");        
-      }
-    }
-  ]);  
+    firstQuestion = questions.objectAt(0);
+    ok(firstQuestion, "We have a firstQuestion");
+    
+    testAfterPropertyChange(firstQuestion, 'status', function () {
+      statusEquals(firstQuestion, SC.Record.READY_CLEAN, "question's status is READY_CLEAN");
+      ok(firstQuestion.get('prompt'), "first question has a valid prompt");
+    });
+  });
 });
