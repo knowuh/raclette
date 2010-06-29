@@ -109,11 +109,24 @@ Raclette.RailsDataSource = SC.DataSource.extend(
                     'Accept': 'application/json'
                 }).json()
 
-          .notify(this, this.didCreateTask, store, storeKey)
+          .notify(this, this.didCreateRecord, store, storeKey)
           .send({activity: store.readDataHash(storeKey)});
     console.groupEnd();
     return YES;
   },
+  
+  didCreateRecord: function(response, store, storeKey) {
+    if (SC.ok(response)) {
+      // Adapted from parseUri 1.2.2
+      // (c) Steven Levithan <stevenlevithan.com>
+      // MIT License
+      var parser = /^(?:(?![^:@]+:[^:@\/]*@)([^:\/?#.]+):)?(?:\/\/)?((?:(([^:@]*)(?::([^:@]*))?)?@)?([^:\/?#]*)(?::(\d*))?)(((\/(?:[^?#](?![^?#\/]*\.[^?#\/.]+(?:[?#]|$)))*\/?)?([^?#\/]*))(?:\?([^#]*))?(?:#(.*))?)/;
+      var url = parser.exec(response.header('Location'))[8];
+      store.dataSourceDidComplete(storeKey, null, url); // update url
+
+    } else store.dataSourceDidError(storeKey, response);
+  },
+  
 
   updateRecord: function(store, storeKey) {
 

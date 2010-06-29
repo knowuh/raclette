@@ -66,6 +66,7 @@ test("we create a new activity on the server when we create activity", function(
         statusEquals(newActivity, SC.Record.READY_CLEAN, "newActivity state was clean");
         
         var checkAddedActivity = function() {
+          console.log("checkAddedActivity called");
           activities.removeObserver('status', checkAddedActivity);
           statusEquals(activities, SC.Record.READY_CLEAN, "activities state was clean");
           
@@ -73,12 +74,15 @@ test("we create a new activity on the server when we create activity", function(
           
           start();
         };
-        activities.addObserver('status', checkAddedActivity);
+        if (activities.get('status') !== SC.Record.READY_CLEAN) {  
+          activities.addObserver('status', checkAddedActivity);
+        }
+        else {
+          checkAddedActivity();
+        }
        };
        newActivity.addObserver('status', checkAddedActivityPending);
    };
    activities.addObserver('status', checkActivitiesExist);
-   
-   
   
 });
