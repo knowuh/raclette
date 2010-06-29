@@ -90,16 +90,12 @@ statusQueue = function(statusArray){
 
 
 var nStops = 0;
-function queueStop(t) {
-  console.group('queueStop');
-  
+function queueStop(t) {  
   if (nStops === 0) stop(t);
   nStops++;
 }
 
 function queueStart() {
-  console.groupEnd();
-  
   if (nStops < 1) throw 'queued too many starts';
   nStops--;
   if (nStops === 0) start();
@@ -107,7 +103,8 @@ function queueStart() {
   
 function testAfterPropertyChange(target, property, testFn) {
   if (target && target.addObserver) { 
-    queueStop();       // give a healthy 10s timeout to discourage anyone from depending on a timeout to signal failure
+    // give a healthy 10s timeout to discourage anyone from depending on a timeout to signal failure
+    queueStop(10000);   
   }
   else {
     ok(false, 'testAfterStatusChange: target is empty or does not have addObserver() method.');
@@ -118,7 +115,7 @@ function testAfterPropertyChange(target, property, testFn) {
     target.removeObserver(property, observer);
     try {
       testFn();
-    } 
+    }
     catch (e) {
       ok(false, 'testAfterStatusChange died! See console log.');
       console.error(e);
