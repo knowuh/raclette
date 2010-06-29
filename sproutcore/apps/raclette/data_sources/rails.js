@@ -110,7 +110,7 @@ Raclette.RailsDataSource = SC.DataSource.extend(
                 }).json()
 
           .notify(this, this.didCreateTask, store, storeKey)
-          .send(store.readDataHash(storeKey));
+          .send({activity: store.readDataHash(storeKey)});
     console.groupEnd();
     return YES;
   },
