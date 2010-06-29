@@ -1,4 +1,4 @@
-/*globals statusEquals statusNotify */      // make jslint happy
+/*globals statusEquals statusNotify statusQueue*/      // make jslint happy
 
 // Helper function to convert status number to a string
 // this was taken from SC.Record#statusString
@@ -24,10 +24,6 @@ statusEquals = function(obj, status, message){
 // Helper function to notify for a particular status
 // it will call func immediately if the status matches
 statusNotify = function(obj, status, func){
-  // suspend property change notifications so we can atomically check if the status is changed
-  // this should make the method more thread safe
-  obj.beginPropertyChanges();
-
   if(obj.get('status') & status){
     console.log('statusNotify firing synchronously');
     func.call();
@@ -45,8 +41,43 @@ statusNotify = function(obj, status, func){
     }
   };
   obj.addObserver('status', checkingFunc);
+};
 
-  // resume property change notifications
-  // this should make the method more thread safe
-  obj.endPropertyChanges();	
+// expects an array of {target: <some object to check the status on>,
+//    callback: <some function to call when the status changes>}
+statusQueue = function(statusArray){
+  stop(2000 + statusArray.get('length') * 500);
+  
+  var iterate = function(statusArray){
+    var item = statusArray.shiftObject();
+    
+    var observerFunc = function(){
+      // remove the observer incase the passed func causes it to fire again
+      item.target.removeObserver('status', observerFunc);
+      var failed = false;
+      var length = statusArray.get('length');
+      try {
+        item.callback(statusArray);
+        if(length > 0){
+          iterate(statusArray);
+        } 
+      } catch(e) {
+        console.error("statusNotify died, exception and callback follows");
+        console.error(e);
+        console.warn(item.callback.toString());
+
+        ok(false, "statusNotify died: " + e.message);
+        failed = true;
+      } finally {
+        // If an exception was thrown or we've reached the end of the queue
+        // startup QUnit again
+        if(failed || length === 0){
+          start();
+        }
+      }
+    };
+    item.target.addObserver('status', observerFunc);  
+  };
+  
+  iterate(statusArray);
 };
