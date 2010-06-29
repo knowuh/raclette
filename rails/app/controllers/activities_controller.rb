@@ -74,7 +74,6 @@ class ActivitiesController < ApplicationController
   # POST /activities
   # POST /activities.xml
   def create
-    debugger
     @activity = Activity.new(params[:activity])
     
     respond_to do |format|
