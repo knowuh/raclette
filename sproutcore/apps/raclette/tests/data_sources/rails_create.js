@@ -50,11 +50,12 @@ test("we create a new activity on the server when we create activity", function 
 
     var numActivities = activities.get('length');
     console.log('we have ' + numActivities + ' activities at start');
-
+    
+    var activityTitle = "A new activity";
     var newActivity;
     SC.run(function () {
       newActivity = Raclette.store.createRecord(Raclette.Activity, {
-        title: "A new activity",
+        title: activityTitle,
         guid: 'tempguid'
       });
     });
@@ -71,22 +72,23 @@ test("we create a new activity on the server when we create activity", function 
     statusEquals(newActivity, SC.Record.BUSY_CREATING, 'newActivity should still be in BUSY_CREATING after refresh');
     
     testAfterPropertyChange(activities, 'status', function () {
+      
       // this is not that we expect this for any particular reason, but it is what we consistently observe:
       statusEquals(activities, SC.Record.BUSY_REFRESH, "activities's next state should be BUSY_REFRESH");
       
       testAfterPropertyChange(activities, 'status', function () {
+        
+        newActivity.refresh();
            
         var testThatOneActivityWasAdded = function () {     // there could be a helper for this pattern
           statusEquals(activities, SC.Record.READY_CLEAN, 
             "activities state should be READY_CLEAN before number of activities is tested.");
-          
-          statusEquals(newActivity, SC.Record.READY_CLEAN, 
-            "newActivity state should be READY_CLEAN before number of activities is tested.");
 
           var newNumActivities = activities.get('length');      
           equals(newNumActivities, numActivities+1, 
             'Number of old activities should be old number of activities (' + numActivities + ') + 1');
           ok(newActivity.get('id') !== 'tempguid', "newActivity should no longer have id 'tempguid' (it has " + newActivity.get('id') + ")");
+          ok(newActivity.get('title') === activityTitle, "newActivity's title should be " + activityTitle);
         };
         
         if (newActivity.get('status') !== SC.Record.READY_CLEAN) {
