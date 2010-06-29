@@ -21,6 +21,7 @@ statusEquals = function(obj, status, message){
   equals(SC.Record.statusString(obj.get('status')), SC.Record.statusString(status), message);	
 };
 
+
 // Helper function to notify for a particular status
 // it will call func immediately if the status matches
 statusNotify = function(obj, status, func){
@@ -42,6 +43,7 @@ statusNotify = function(obj, status, func){
   };
   obj.addObserver('status', checkingFunc);
 };
+
 
 // expects an array of {target: <some object to check the status on>,
 //    callback: <some function to call when the status changes>}
@@ -81,3 +83,49 @@ statusQueue = function(statusArray){
   
   iterate(statusArray);
 };
+
+
+
+/** some globals needed by testAfterPropertyChange() */
+
+
+var nStops = 0;
+function queueStop(t) {
+  console.group('queueStop');
+  
+  if (nStops === 0) stop(t);
+  nStops++;
+}
+
+function queueStart() {
+  console.groupEnd();
+  
+  if (nStops < 1) throw 'queued too many starts';
+  nStops--;
+  if (nStops === 0) start();
+}
+  
+function testAfterPropertyChange(target, property, testFn) {
+  if (target && target.addObserver) { 
+    queueStop();       // give a healthy 10s timeout to discourage anyone from depending on a timeout to signal failure
+  }
+  else {
+    ok(false, 'testAfterStatusChange: target is empty or does not have addObserver() method.');
+    throw 'testAfterStatusChange: target is empty or does not have addObserver() method';
+  }
+  
+  function observer() {
+    target.removeObserver(property, observer);
+    try {
+      testFn();
+    } 
+    catch (e) {
+      ok(false, 'testAfterStatusChange died! See console log.');
+      console.error(e);
+      queueStart();
+      throw e;
+    }
+    queueStart();
+  }
+  target.addObserver('status', observer);
+}
