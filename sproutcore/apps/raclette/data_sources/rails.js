@@ -104,13 +104,16 @@ Raclette.RailsDataSource = SC.DataSource.extend(
   },
 
   createRecord: function(store, storeKey) {
+    var recordType = store.recordTypeFor(storeKey);
+    var modelName = recordType.modelName;
+
     console.group('Raclette.RailsDataSource.createRecord()');
-    SC.Request.postUrl('/rails/activities').header({
+    SC.Request.postUrl('/rails/' + recordType.modelsName).header({
                     'Accept': 'application/json'
                 }).json()
 
           .notify(this, this.didCreateRecord, store, storeKey)
-          .send({activity: store.readDataHash(storeKey)});
+          .send({ modelName: store.readDataHash(storeKey)});
     console.groupEnd();
     return YES;
   },
