@@ -1,27 +1,12 @@
-# default.gems generated gem export file. Note that any env variable settings will be missing. Append these after using a ';' field separator
-abstract -v1.0.0
-actionmailer -v2.3.8
-actionpack -v2.3.8
-activerecord -v2.3.8
-activeresource -v2.3.8
-activesupport -v2.3.8
-culerity -v0.2.10
-daemons -v1.1.0
-erubis -v2.6.5
-eventmachine -v0.12.10
-extlib -v0.9.15
-ffi -v0.6.3
-json_pure -v1.4.3
-mime-types -v1.16
-nokogiri -v1.4.2
-rack -v1.2.1
-rack -v1.1.0
-rack-test -v0.5.4
+# Note that any env variable settings necessary for gem installation will be missing. 
+# Append these after using a ';' field separator
 rails -v2.3.8
-rake -v0.8.7
 rspec -v1.3.0
 rspec-rails -v1.3.2
 sproutcore -v1.0.1046
 sqlite3 -v0.1.1
 thin -v1.2.7
+nokogiri -v1.4.2
 thor -v0.13.6
+rack -v1.2.1
+culerity -v0.2.10
