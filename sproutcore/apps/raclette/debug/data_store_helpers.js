@@ -130,3 +130,20 @@ function testAfterPropertyChange(target, property, testFn) {
   }
   target.addObserver('status', observer);
 }
+
+function getSync(url){
+  return SC.Request.getUrl(url)
+  .header({
+    'Accept': 'application/json'
+  })
+  .set('isAsynchronous', NO)
+  .json()
+  .send();
+}
+
+function getIndexSync(modelsName){
+  var models_json = getSync('/rails/' + modelsName + '.json');
+  ok(SC.ok(models_json), 'Syncrounous raw request for ' + modelsName + ' suceeded');
+
+  return models_json.get('body').content;
+}

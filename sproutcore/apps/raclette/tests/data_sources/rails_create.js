@@ -4,7 +4,7 @@
 // http://localhost:4020/raclette/en/current/tests/models/activity.html
 //
 // ==========================================================================
-/*globals Raclette module test ok equals same stop start statusEquals statusNotify testAfterPropertyChange*/
+/*globals Raclette module test ok equals same stop start statusEquals statusNotify testAfterPropertyChange getIndexSync*/
 
 // { setup: store: SC.Store.create().from('Raclette.RailsDataSource') }
 
@@ -73,6 +73,27 @@ test("record is assigned a Rails-generated id after createRecord", function () {
   });
 });
             
+test("basic create test", function() {
+  var numActivities  = getIndexSync('activities').get('length');
+  
+  var newActivity;
+  SC.run(function () {
+    newActivity = Raclette.store.createRecord(Raclette.Activity, {
+      title: 'testtitle',
+      guid: 'tempguid'
+    });
+  });
+  
+  testAfterPropertyChange(newActivity, 'status', function () {
+    statusEquals(newActivity, SC.Record.READY_CLEAN, 'newActivity should transition to READY_CLEAN');
+
+    var newNumActivities  = getIndexSync('activities').get('length');
+
+    equals(newNumActivities, numActivities+1, 
+      'Number of activities should be old number of activities (' + numActivities + ') + 1');      
+  });
+});
+
 
 test("record transitions between known states when loaded and refreshed", function () {
   var activities = Raclette.store.find(Raclette.ACTIVITIES_QUERY);
