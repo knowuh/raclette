@@ -32,7 +32,7 @@ include Appscript
 class TabWindows
   def self.make(name, tab_commands)
     term = app('Terminal')
-    term.do_script("")
+    # term.do_script("")
     current_window = app('Terminal').windows[1].get
     current_tab = current_window.selected_tab.get
     # current_tab.custom_title(name)
