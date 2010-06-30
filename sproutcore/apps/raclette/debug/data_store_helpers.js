@@ -120,7 +120,11 @@ function testAfterPropertyChange(target, property, testFn) {
       ok(false, 'testAfterPropertyChange died! See console log.');
       console.error(e);
       popStart();
-      throw e;
+      // it is better not to throw the exception here
+      // exceptions thrown in observers cause hard to find problems, the observed object won't send out
+      // future notifications because its notification code will be left in a bad state. 
+      // (see the 'level' variable used in observable)
+      return;
     }
     popStart();
   }
