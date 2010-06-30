@@ -88,15 +88,15 @@ statusQueue = function(statusArray){
 
 /** some globals needed by testAfterPropertyChange() */
 
-
 var nStops = 0;
-function queueStop(t) {  
+
+function pushStop(t) {  
   if (nStops === 0) stop(t);
   nStops++;
 }
 
-function queueStart() {
-  if (nStops < 1) throw 'queued too many starts';
+function popStart() {
+  if (nStops < 1) throw 'popped too many starts';
   nStops--;
   if (nStops === 0) start();
 }
@@ -104,11 +104,11 @@ function queueStart() {
 function testAfterPropertyChange(target, property, testFn) {
   if (target && target.addObserver) { 
     // give a healthy 10s timeout to discourage anyone from depending on a timeout to signal failure
-    queueStop(10000);   
+    pushStop(10000);   
   }
   else {
-    ok(false, 'testAfterStatusChange: target is empty or does not have addObserver() method.');
-    throw 'testAfterStatusChange: target is empty or does not have addObserver() method';
+    ok(false, 'testAfterPropertyChange: target is empty or does not have addObserver property.');
+    throw 'testAfterPropertyChange: target is empty or does not have addObserver property';
   }
   
   function observer() {
@@ -117,12 +117,12 @@ function testAfterPropertyChange(target, property, testFn) {
       testFn();
     }
     catch (e) {
-      ok(false, 'testAfterStatusChange died! See console log.');
+      ok(false, 'testAfterPropertyChange died! See console log.');
       console.error(e);
-      queueStart();
+      popStart();
       throw e;
     }
-    queueStart();
+    popStart();
   }
   target.addObserver('status', observer);
 }
