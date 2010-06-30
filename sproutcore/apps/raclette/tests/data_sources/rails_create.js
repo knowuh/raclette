@@ -37,13 +37,13 @@ test("createRecord is called on activity creation", function() {
 });
 
 
-test("record is assigned a Rails-generated id after createRecord + refresh test", function () {
+test("record is assigned a Rails-generated id after createRecord", function () {
   var activities = Raclette.store.find(Raclette.ACTIVITIES_QUERY);
   statusEquals(activities, SC.Record.BUSY_LOADING, 
-    'activities RecordArray should be BUSY_LOADING immediately after find');
+    'activities RecordArray should in BUSY_LOADING state immediately after find');
    
   testAfterPropertyChange(activities, 'status', function () {
-    statusEquals(activities, SC.Record.READY_CLEAN, "activities RecordArray's next status should be READY_CLEAN");
+    statusEquals(activities, SC.Record.READY_CLEAN, "activities should transition to READY_CLEAN");
     var numActivities = activities.get('length');
 
     var newActivity;
@@ -60,30 +60,46 @@ test("record is assigned a Rails-generated id after createRecord + refresh test"
     statusEquals(newActivity, SC.Record.BUSY_CREATING, 
       'newActivity should be in BUSY_CREATING state immediately after createRecord');
 
+    testAfterPropertyChange(newActivity, 'status', function () {
+      statusEquals(newActivity, SC.Record.READY_CLEAN, 'newActivity should transition to READY_CLEAN');
+      ok(newActivity.get('id') !== 'tempguid', 
+        "newActivity should no longer have id 'tempguid' (it has " + newActivity.get('id') + ")");
+      equals(activities.get('length'), numActivities+1, 
+        'Number of old activities should be old number of activities (' + numActivities + ') + 1');
+
+      ok(newActivity.get('title') === 'testtitle', "newActivity's title should be 'testtitle'");
+        
+    });
+  });
+});
+            
+
+test("record transitions between known states when loaded and refreshed", function () {
+  var activities = Raclette.store.find(Raclette.ACTIVITIES_QUERY);
+  statusEquals(activities, SC.Record.BUSY_LOADING, 
+    'activities RecordArray should be BUSY_LOADING immediately after find');
+   
+  testAfterPropertyChange(activities, 'status', function () {
+    statusEquals(activities, SC.Record.READY_CLEAN, "activities should transition to READY_CLEAN");
+    var firstActivity = activities.objectAt(0);
+    var numActivities = activities.get('length');
+    statusEquals(firstActivity, SC.Record.READY_CLEAN, 'firstActivity should be in READY_CLEAN state before refresh');    
+
     activities.refresh();
 
     statusEquals(activities, SC.Record.BUSY_REFRESH, 'activities should be in BUSY_REFRESH state after refresh');
-    statusEquals(newActivity, SC.Record.BUSY_CREATING, 'newActivity should still be in BUSY_CREATING after refresh');
+    statusEquals(firstActivity, SC.Record.READY_CLEAN, 'firstActivity should still be in READY_CLEAN state after refresh');
     
-    testAfterPropertyChange(newActivity, 'status', function () {
-      statusEquals(newActivity, SC.Record.READY_CLEAN, 'newActivity should transition to READY_CLEAN');
-      SC.RunLoop.begin();
-      SC.RunLoop.end();
-      statusEquals(activities, SC.Record.BUSY_REFRESH, 
-        'activities should still be in BUSY_REFRESH after newActivity state transition, even after a runloop');
-      
+    var waitForRefresh = function () {
       testAfterPropertyChange(activities, 'status', function () {
-        statusEquals(newActivity, SC.Record.READY_CLEAN, 'newActivity should still be READY_CLEAN');
-        statusEquals(activities, SC.Record.READY_CLEAN, 
-          "activities state should transition to READY_CLEAN, after newActivity's state transition");
-  
-        var newNumActivities = activities.get('length');      
-        equals(newNumActivities, numActivities+1, 
-          'Number of old activities should be old number of activities (' + numActivities + ') + 1');
-        ok(newActivity.get('id') !== 'tempguid', 
-          "newActivity should no longer have id 'tempguid' (it has " + newActivity.get('id') + ")");
-        ok(newActivity.get('title') === 'testtitle', "newActivity's title should be 'testtitle'");
+        if (activities.get('status') === SC.Record.BUSY_REFRESH) {
+          waitForRefresh();
+        }
+        else {
+          statusEquals(activities, SC.Record.READY_CLEAN, "activities should (eventually) transition to READY_CLEAN after BUSY_REFRESH");
+        }
       });
-    });
+    };
+    waitForRefresh();
   });
 });
