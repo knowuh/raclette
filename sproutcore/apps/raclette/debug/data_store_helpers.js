@@ -117,7 +117,7 @@ function testAfterPropertyChange(target, property, testFn) {
       testFn();
     }
     catch (e) {
-      ok(false, 'testAfterPropertyChange died! See console log.');
+      CoreTest.plan.error('Error during testAfterPropertyChange! See console log for details.', e);
       console.error(e);
       popStart();
       // it is better not to throw the exception here
