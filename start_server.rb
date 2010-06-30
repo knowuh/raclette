@@ -19,7 +19,7 @@ require "#{this_dir}/scripts/tab_windows.rb"
 
 tab_commands = [
   [this_dir, 'rvm use 1.9.1@raclette; git status'],
-  [this_dir,'rvm use 1.9.1@raclette; cd rails; rake db:seed; script/server -p 3001'], 
+  [this_dir,'rvm use 1.9.1@raclette; cd rails; rake db:reset; script/server -p 3001'], 
   [this_dir, 'rvm use 1.9.1@raclette; cd sproutcore; sc-server']
 ]
 
