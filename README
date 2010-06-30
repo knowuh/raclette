@@ -1,19 +1,93 @@
 Raclette: a warm sprouted cheese rolling down the rails
 
-Actually a simple SproutCore app.
+Actually a simple SproutCore app with a Rails backend.
 
-This is developed use the gem version of sproutcore.
+The SproutCore application and the Rails backend implement two very simple models:
 
-  gem install sproutcore thin
+  Activities have a title and 0..n Questions
+  Questions have a prompt and belong to an Activity
 
-Running tests
+Development prerequisites:
 
-  http://0.0.0.0:4020/sproutcore/tests#raclette
-  
-Direct url to the tests:
+Mac OS X 10.5 or 10.6, xcode and git installed.
 
-  http://0.0.0.0:4020/static/raclette/en/current/tests.html
-  
+We are using rvm to install Ruby 1.9.1 on Mac OS X:
+
+1) Clone the raclette repository
+
+If you have commit access to the repository use the ssh url: 
+
+  git clone git@github.com:knowuh/raclette.git
+
+Otherwise use the read-only url:
+
+  git clone git://github.com/knowuh/raclette.git
+
+2) Install rvm
+
+Instructions: http://rvm.beginrescueend.com/rvm/install/
+
+To install/update from the github repository (recommended):
+
+  bash < <( curl http://rvm.beginrescueend.com/releases/rvm-install-head )
+
+If you already have rvm installed you can update to the most recent version from github like this:
+
+  rvm update --head
+ 
+3) Use rvm to install Ruby 1.9.1.
+
+  rvm install 1.9.1
+
+4) Create an rvm gemset for raclette named 'raclette' with the required gems.
+
+  rvm use 1.9.1
+  rvm gemset create raclette
+  rvm gemset use raclette
+  rvm gemset import default.gems 
+
+Now you can easily use rvm to switch to Ruby 1.9.1 and the specific gems needed for raclette with this command:
+
+  rvm use 1.9.1@raclette
+
+5) Start the Rails backend and the SproutCore development server in separate console windows
+
+* The following steps are automated in the start_server.rb ruby script
+
+Open a new console windowm, cd to the raclette dir and then:
+
+  rvm use 1.9.1@raclette
+  cd rails
+  rake db:seed
+  script/server -p 3001
+
+Open a new console window, cd to the raclette dir and then:
+
+  rvm use 1.9.1@raclette
+  cd sproutcore
+  sc-server
+
+Here are some useful urls to open:
+
+Raclette SproutCore app:
+  http://0.0.0.0:4020/raclette
+
+Just the Raclette SproutCore tests:
+  http://0.0.0.0:4020/raclette/en/current/tests.html
+
+Specific Raclette SproutCore rails data source fetch and retrieve tests:
+  http://0.0.0.0:4020/raclette/en/current/tests/data_sources/rails_fetch_and_retrieve.html
+
+Specific Raclette SproutCore rails data source create tests:
+  http://0.0.0.0:4020/raclette/en/current/tests/data_sources/rails_create.html
+
+Rails backend views showing Activities and Questions
+  http://localhost:3001/rails/activities
+  http://localhost:3001/rails/questions
+
+All the SproutCore tests
+  http://0.0.0.0:4020/sproutcore/tests
+
 Here's how the app was initially setup:
 
   $ which sc-init
@@ -79,13 +153,6 @@ Configuring git to track a remote branch:
       url = <url>
       fetch = <refspec>
 
-Using rvm and installing the required gems.
-
-  rvm install 1.9.1
-  rvm use 1.9.1
-  rvm gemset create raclette
-  rvm gemset use raclette
-  rvm gemset import default.gems 
 
 
 Trying to find new records in the console:
