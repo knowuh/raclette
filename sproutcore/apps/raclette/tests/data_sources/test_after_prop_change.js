@@ -4,7 +4,7 @@ var obj;
 
 module("testAfterPropertyChange", { 
   setup: function () {
-    obj = SC.Object.create({status: 0}); 
+    obj = SC.Object.create({testProp: 0}); 
   }
 });
 
@@ -13,10 +13,10 @@ test("testAfterPropertyChange calls callback", function () {
   expect(1);    // expect 1 assertion, i.e., fail the test unless the testAfterPropertyChange really does call ok()
 
   setTimeout(function () {
-    obj.set('status', 1);
+    obj.set('testProp', 1);
   }, 100);
 
-  testAfterPropertyChange(obj, 'status', function () {
+  testAfterPropertyChange(obj, 'testProp', function () {
     ok(true, 'callback was called');    
   });
 });
@@ -31,12 +31,12 @@ test("testAfterPropertyChange indicates the error when the callback throws an ex
     errorWasCalled = true;
   };
   
-  testAfterPropertyChange(obj, 'status', function () {
+  testAfterPropertyChange(obj, 'testProp', function () {
     null.get("this won't work!");
   });
   
   setTimeout(function () {
-    obj.set('status', 1);
+    obj.set('testProp', 1);
     CoreTest.plan.error = oldError;
     ok(errorWasCalled, "The error in the testAfterPropertyChange callback should result in a call CoreTest.plan.error()");
   }, 100);
@@ -48,18 +48,18 @@ test("testAfterPropertyChange handles nesting", function () {
   
   setTimeout(function () {
     ok(true, 'first timeout was called');
-    obj.set('status', 1);
+    obj.set('testProp', 1);
   }, 100);
   
-  testAfterPropertyChange(obj, 'status', function () {
+  testAfterPropertyChange(obj, 'testProp', function () {
     ok(true, 'callback was called after first timeout');
 
     setTimeout(function () {
       ok(true, 'second timeout was called');
-      obj.set('status', 2);
+      obj.set('testProp', 2);
     }, 100);
 
-    testAfterPropertyChange(obj, 'status', function () {
+    testAfterPropertyChange(obj, 'testProp', function () {
       ok(true, 'callback was called after second timeout');
     });
   });  
@@ -72,13 +72,13 @@ test("testAfterPropertyChange handles exceptions without failing to call nested 
   var oldError, errorWasCalled;
   
   var getNumObservers = function () {
-    return obj._kvo_observers_status ? obj._kvo_observers_status.getMembers().length : 0;
+    return obj._kvo_observers_testProp ? obj._kvo_observers_testProp.getMembers().length : 0;
   };
   var nObservers = getNumObservers();
 
   setTimeout(function () {
     ok(true, 'outer timeout was called');       // 1
-    obj.set('status', 1);
+    obj.set('testProp', 1);
     
     CoreTest.plan.error = oldError;
         
@@ -87,20 +87,20 @@ test("testAfterPropertyChange handles exceptions without failing to call nested 
       "CoreTest.plan.error()");
   }, 100);
   
-  testAfterPropertyChange(obj, 'status', function () {
+  testAfterPropertyChange(obj, 'testProp', function () {
     ok(true, 'outer testAfterPropertyChange callback was called');          // 3
     
     // the nested testAfterPropertyChange follows:
     setTimeout(function () {
       ok(true, 'inner timeout was called');     // 4
-      obj.set('status', 2);
+      obj.set('testProp', 2);
       
       equals(getNumObservers(), nObservers,     // 5
         "after the inner testAfterPropertyChange callback, 'obj' should have no net change in the number of " +
         "observers (even though the outer callback threw an exception)");
     }, 100);
 
-    testAfterPropertyChange(obj, 'status', function () {
+    testAfterPropertyChange(obj, 'testProp', function () {
       ok(true,                                  // 6
         'inner testAfterPropertyChange callback was called despite exception in outer testAfterPropertyChange callback');
     });

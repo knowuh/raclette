@@ -128,7 +128,7 @@ function testAfterPropertyChange(target, property, testFn) {
     }
     popStart();
   }
-  target.addObserver('status', observer);
+  target.addObserver(property, observer);
 }
 
 function getSync(url){
