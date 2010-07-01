@@ -3,6 +3,7 @@ rails/config/database.yml
 rails/log/*.log
 rails/db/*.sqlite3
 rails/db/*.db
+rails/tmp
 textmate.tmproj
 .loadpath
 .project
