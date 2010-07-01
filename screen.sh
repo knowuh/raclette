@@ -12,6 +12,7 @@ SC_PORT="4020"
 
 # create detached screen session:
 screen -d -m -c ./.screenrc -S raclette
+screen -X -s raclette -p 0 stuff "source $HOME/.bash_profile; sleep 2; clear; $RETURN"
 
 # add some windows:
 screen -X -S raclette screen -t rails_server 1
@@ -21,7 +22,9 @@ screen -X -S raclette -p 1 stuff "cd rails; ./script/server -p $RAILS_PORT $RETU
 
 screen -X -S raclette -p 2 stuff "cd sproutcore; sc-server $RETURN"
 
-sleep 1
+
+# wait for web severs to start up
+sleep 3
 
 # open browsers
 open "http://localhost:${RAILS_PORT}/" &

@@ -1,2 +1,3 @@
 hardstatus alwayslastline "%{= yk} <ctra-a>0 for shell, <ctr-a>1 for rails, <ctr-a>2 for sproutcore %-= | %c"
 caption always "%t -- [%w]"
+scrollback 5000
