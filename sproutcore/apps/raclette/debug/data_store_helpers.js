@@ -143,7 +143,7 @@ function getSync(url){
 
 function getIndexSync(modelsName){
   var models_json = getSync('/rails/' + modelsName + '.json');
-  ok(SC.ok(models_json), 'Syncrounous raw request for ' + modelsName + ' suceeded');
+  ok(SC.ok(models_json), 'Synchronous raw request for ' + modelsName);
 
   return models_json.get('body').content;
 }
