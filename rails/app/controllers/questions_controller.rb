@@ -91,7 +91,7 @@ class QuestionsController < ApplicationController
   #To customize the JSON output of an object, write a json_for_activity protected method in TasksController (app/controllers/activities_controller.rb): 
   protected
   def json_for_question(question)
-    { :guid => question_path(question, :format => :json ),
+    { :guid => question_path(question),
       :prompt => question.prompt
     }
   end

@@ -87,7 +87,7 @@ test("verify retrieveRecord is called when first related object is requested", f
 });
 
 test("does retrieveRecord work for questions", function() {
-  var question = Raclette.store.find(Raclette.Question, '/rails/questions/1.json');
+  var question = Raclette.store.find(Raclette.Question, '/rails/questions/1');
   ok(question !==  null, "question should not be null");
   
   statusQueue([

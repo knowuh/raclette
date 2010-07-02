@@ -27,7 +27,7 @@ Raclette.RailsDataSource = SC.DataSource.extend(
     params = SC.A(arguments).slice(1);
     params.unshift(this);
     
-    var request = SC.Request.getUrl(url).header({
+    var request = SC.Request.getUrl(url + '.json').header({
       'Accept': 'application/json'
     }).json();
     request.notify.apply(request, params);
@@ -45,7 +45,7 @@ Raclette.RailsDataSource = SC.DataSource.extend(
 
     if (query === Raclette.ACTIVITIES_QUERY) {
       console.log('query === Raclette.ACTIVITIES_QUERY', query);
-      this._jsonGet('/rails/activities.json', 'didFetchActivities', store, query);
+      this._jsonGet('/rails/activities', 'didFetchActivities', store, query);
       console.groupEnd();
 
       return YES;
@@ -84,7 +84,7 @@ Raclette.RailsDataSource = SC.DataSource.extend(
   //
   retrieveRecord: function(store, storeKey) {
     console.log('Raclette.RailsDataSource.retrieveRecord');
-    // guid will be rails url e.g. /rails/questions/1.json
+    // guid will be rails url e.g. /rails/questions/1
     var guid = store.idFor(storeKey);
     
     this._jsonGet(guid, 'didRetrieveRecord', store, storeKey);
@@ -136,7 +136,7 @@ Raclette.RailsDataSource = SC.DataSource.extend(
       // MIT License
       var parser = /^(?:(?![^:@]+:[^:@\/]*@)([^:\/?#.]+):)?(?:\/\/)?((?:(([^:@]*)(?::([^:@]*))?)?@)?([^:\/?#]*)(?::(\d*))?)(((\/(?:[^?#](?![^?#\/]*\.[^?#\/.]+(?:[?#]|$)))*\/?)?([^?#\/]*))(?:\?([^#]*))?(?:#(.*))?)/;
       var url = parser.exec(response.header('Location'))[8];
-      store.dataSourceDidComplete(storeKey, null, url+'.json'); // update url
+      store.dataSourceDidComplete(storeKey, null, url); // update url
 
     } else store.dataSourceDidError(storeKey, response);
   },
