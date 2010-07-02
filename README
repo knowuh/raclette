@@ -245,44 +245,12 @@ Which when expanded to look nice looks like this:
       "content":
       [
           {
-              "questions":
-              [
-                  {
-                      "updated_at":"2010-06-25T20:47:47Z",
-                      "prompt":"Why is the sky blue?",
-                      "activity_id":1,
-                      "id":1,
-                      "created_at":"2010-06-25T20:47:47Z"
-                  },
-                  {
-                      "updated_at":"2010-06-25T20:48:06Z",
-                      "prompt":"Why is the ocean blue?",
-                      "activity_id":1,
-                      "id":2,
-                      "created_at":"2010-06-25T20:48:06Z"
-                  }
-              ],
+              "questions": [  "/rails/questions/1.json", "/rails/questions/2.json" ],
               "title":"Trailers of Cheese",
               "guid":"/rails/activities/1"
           },
           {
-              "questions":
-              [
-                  {
-                      "updated_at":"2010-06-25T20:48:24Z",
-                      "prompt":"What is the color of money?",
-                      "activity_id":2,
-                      "id":3,
-                      "created_at":"2010-06-25T20:48:24Z"
-                  },
-                  {
-                      "updated_at":"2010-06-25T20:49:12Z",
-                      "prompt":"What is the meaning of life?",
-                      "activity_id":2,
-                      "id":4,
-                      "created_at":"2010-06-25T20:49:12Z"
-                  }
-              ],
+              "questions": [  "/rails/questions/3.json", "/rails/questions/4.json" ],
               "title":"Squares of Cheese",
               "guid":"/rails/activities/2"
           }
