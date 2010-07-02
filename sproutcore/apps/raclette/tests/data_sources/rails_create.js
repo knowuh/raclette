@@ -72,28 +72,37 @@ test("record is assigned a Rails-generated id after createRecord", function () {
     });
   });
 });
-            
-test("basic create test", function() {
-  var numActivities  = getIndexSync('activities').get('length');
+
+
+function basicCreateTest(model, hash) {
+  test("basic " + model.modelName + " create test", function() {
+    var numRecords = getIndexSync(model.modelsName).get('length');
   
-  var newActivity;
-  SC.run(function () {
-    newActivity = Raclette.store.createRecord(Raclette.Activity, {
-      title: 'testtitle',
-      guid: 'tempguid'
+    var newRecord;
+    SC.run(function () {
+      newRecord = Raclette.store.createRecord(model, hash);
+    });
+  
+    testAfterPropertyChange(newRecord, 'status', function () {
+      statusEquals(newRecord, SC.Record.READY_CLEAN, 'New ' + model.modelName + ' should transition to');
+
+      var newNumRecords  = getIndexSync(model.modelsName).get('length');
+
+      equals(newNumRecords, numRecords+1, 
+        'Number of ' + model.modelsName + ' should increment');      
     });
   });
-  
-  testAfterPropertyChange(newActivity, 'status', function () {
-    statusEquals(newActivity, SC.Record.READY_CLEAN, 'newActivity should transition to READY_CLEAN');
+}
 
-    var newNumActivities  = getIndexSync('activities').get('length');
-
-    equals(newNumActivities, numActivities+1, 
-      'Number of activities should be old number of activities (' + numActivities + ') + 1');      
-  });
+basicCreateTest(Raclette.Activity, {
+  title: 'testtitle',
+  guid: 'tempguid'
 });
 
+basicCreateTest(Raclette.Question, {
+  prompt: 'test prompt',
+  guid: 'tempguid'
+});
 
 test("record transitions between known states when loaded and refreshed", function () {
   var activities = Raclette.store.find(Raclette.ACTIVITIES_QUERY);

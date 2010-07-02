@@ -20,3 +20,7 @@ Raclette.Question = SC.Record.extend(
   // TODO: Add your own code here.
 
 }) ;
+
+// these class variables, and help the datastores create 'conventional' urls.
+Raclette.Question.modelName = "question";
+Raclette.Question.modelsName = "questions";

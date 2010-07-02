@@ -7,6 +7,8 @@ class QuestionsController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @questions }
+      questions = @questions.map {|question| json_for_question(question) }
+      format.json { render :json => { :content => questions } }
     end
   end
 
@@ -49,6 +51,7 @@ class QuestionsController < ApplicationController
       if @question.save
         format.html { redirect_to(@question, :notice => 'Question was successfully created.') }
         format.xml  { render :xml => @question, :status => :created, :location => @question }
+        format.json { render :json => @activity, :status => :created, :location => @activity }
       else
         format.html { render :action => "new" }
         format.xml  { render :xml => @question.errors, :status => :unprocessable_entity }
