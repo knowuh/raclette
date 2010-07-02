@@ -21,6 +21,22 @@ Raclette.RailsDataSource = SC.DataSource.extend(
 /** @scope Raclette.RailsDataSource.prototype */
 {
 
+  _jsonGet: function(url, callback, params){
+    // replace the url with 'this'
+    // so we can pass the params to notify
+    params = SC.A(arguments).slice(1);
+    params.unshift(this);
+    
+    var request = SC.Request.getUrl(url).header({
+      'Accept': 'application/json'
+    }).json();
+    request.notify.apply(request, params);
+    
+    console.log('request.address: %s', request.address);
+    console.log('request: ', request);
+    request.send();
+  },
+
   // ..........................................................
   // QUERY SUPPORT
   //
@@ -29,13 +45,7 @@ Raclette.RailsDataSource = SC.DataSource.extend(
 
     if (query === Raclette.ACTIVITIES_QUERY) {
       console.log('query === Raclette.ACTIVITIES_QUERY', query);
-      var request = SC.Request.getUrl('/rails/activities.json').header({
-        'Accept': 'application/json'
-      }).json().notify(this, 'didFetchActivities', store, query);
-
-      console.log('request.address: %s', request.address);
-      console.log('request: ', request);
-      request.send();
+      this._jsonGet('/rails/activities.json', 'didFetchActivities', store, query);
       console.groupEnd();
 
       return YES;
@@ -77,9 +87,7 @@ Raclette.RailsDataSource = SC.DataSource.extend(
     // guid will be rails url e.g. /rails/questions/1.json
     var guid = store.idFor(storeKey);
     
-    var request = SC.Request.getUrl(guid).header({
-      'Accept': 'application/json'
-    }).json().notify(this, 'didRetrieveRecord', store, storeKey).send();
+    this._jsonGet(guid, 'didRetrieveRecord', store, storeKey);
     
     return YES; // return YES if you handled the storeKey
   },
