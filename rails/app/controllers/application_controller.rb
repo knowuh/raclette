@@ -29,7 +29,6 @@ class ApplicationController < ActionController::Base
       end
 
       unless records.nil?
-        # replace fixme with something like *_path
         if records.is_a?(Enumerable)
           hash[association.name] = records.map { |r| polymorphic_path(r) } 
         else
