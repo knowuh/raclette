@@ -24,7 +24,7 @@ class ActivitiesController < ApplicationController
 #      end
 #    end
     respond_to do |format|
-      activities = @activities.map {|activity| json_for_activity(activity) }
+      activities = @activities.map {|activity| sproutcore_json(activity) }
       format.json { render :json => { :content => activities } }
       format.html
       format.xml  { render :xml => @activities }      
@@ -48,7 +48,7 @@ class ActivitiesController < ApplicationController
       format.xml  { render :xml => @activity }
       format.json do
         render :json => {
-          :content => json_for_activity(@activity),
+          :content => sproutcore_json(@activity),
           :location => activity_path(@activity)
         }
       end
@@ -115,18 +115,4 @@ class ActivitiesController < ApplicationController
       format.xml  { head :ok }
     end
   end
-
-  #Adjust JSON communication
-  #Sproutcore uses the field guid for objects ids, but Rails calls this field id.
-  #You have two options on how to convert between these naming conventions:
-  #Option 1: Adjust Rails JSON output
-  #To customize the JSON output of an object, write a json_for_activity protected method in TasksController (app/controllers/activities_controller.rb): 
-  protected
-  def json_for_activity(activity)
-    { :guid => activity_path(activity),
-      :title => activity.title,
-      :questions => activity.questions.map { |q| question_path(q) }
-    }
-  end
-
 end
